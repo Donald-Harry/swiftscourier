@@ -8,7 +8,7 @@
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
   <script src="js/script.js" defer></script>
-  <title>Contact Uss | Consignment</title>
+  <title>Contact Us | Consignment</title>
 </head>
 
 <body>
