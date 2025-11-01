@@ -1,9 +1,9 @@
 <?php
 session_start();
 $host = "localhost";
-$user = "u629877266_swiftsexpress";
-$password = 'Trump1234@';
-$db_name = "u629877266_swiftsexpress";
+$user = "u787607796_swiftexpress";
+$password = 'Swiftexpress1234@';
+$db_name = "u787607796_swiftexpress";
 $db = mysqli_connect($host, $user, $password, $db_name);
 if (mysqli_connect_errno()) {
   die("Failed to connect with MySQL: " . mysqli_connect_error());
