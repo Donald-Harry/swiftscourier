@@ -28,7 +28,7 @@
              </div>
 
              <div class="email">
-                 <a href="mailto:support@swiftsexpress.online" target="_blank" class="email-link">support@swiftsexpress.online</a>
+                 <a href="mailto:support@swiftsexpresses.online" target="_blank" class="email-link">support@swiftsexpress.online</a>
              </div>
          </div>
          <div class="col-1-4-parent">
@@ -99,7 +99,7 @@
                  <div class="footer-input">
                      <input type="email" id="email" name="email" placeholder="Your email address" autocomplete="on" class="text" />
 
-                     <a href="mailto:support@swiftsexpress.online" class="email-cta"><i class="fa-solid fa-right-long"></i></a>
+                     <a href="mailto:support@swiftsexpresses.online" class="email-cta"><i class="fa-solid fa-right-long"></i></a>
                  </div>
 
                  <p class="address">Your email is safe with us. We don't spam.</p>
