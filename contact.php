@@ -35,7 +35,7 @@
       </div>
 
       <div class="cont-div">
-        <h1 class="cont-address">Email Address:</h1>
+        <h1 class="cont-address">Email Addresses:</h1>
         <a class="reach-us" href="mailto:support@swiftsexpresses.online">support@swiftexpress.online</a>
       </div>
 
