@@ -97,44 +97,44 @@ function get_wallet_addresses()
                                 echo '<div class="alert alert-info">No wallet addresses found.</div>';
                             } else {
                                 ?>
-                                    <table class="wallet-table">
-                                        <thead>
+                                <table class="wallet-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Crypto Type</th>
+                                            <th>Wallet Address</th>
+                                            <th>Network</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($wallet_addresses as $wallet): ?>
                                             <tr>
-                                                <th>Crypto Type</th>
-                                                <th>Wallet Address</th>
-                                                <th>Network</th>
-                                                <th>Status</th>
-                                                <th>Actions</th>
+                                                <td><?= $wallet['crypto_type'] ?></td>
+                                                <td>
+                                                    <?php
+                                                    if (empty($wallet['wallet_address'])) {
+                                                        echo '<span class="text-muted">Contact Support</span>';
+                                                    } else {
+                                                        echo $wallet['wallet_address'];
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td><?= $wallet['network'] ?></td>
+                                                <td
+                                                    class="<?= $wallet['status'] == 1 ? 'wallet-status-active' : 'wallet-status-inactive' ?>">
+                                                    <?= $wallet['status'] == 1 ? 'Active' : 'Inactive' ?>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-primary"
+                                                        onclick="editWallet(<?= $wallet['id'] ?>)">
+                                                        <i class="fa fa-edit"></i> Edit
+                                                    </button>
+                                                </td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php foreach ($wallet_addresses as $wallet): ?>
-                                                    <tr>
-                                                        <td><?= $wallet['crypto_type'] ?></td>
-                                                        <td>
-                                                            <?php
-                                                            if (empty($wallet['wallet_address'])) {
-                                                                echo '<span class="text-muted">Contact Support</span>';
-                                                            } else {
-                                                                echo $wallet['wallet_address'];
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        <td><?= $wallet['network'] ?></td>
-                                                        <td
-                                                            class="<?= $wallet['status'] == 1 ? 'wallet-status-active' : 'wallet-status-inactive' ?>">
-                                                            <?= $wallet['status'] == 1 ? 'Active' : 'Inactive' ?>
-                                                        </td>
-                                                        <td>
-                                                            <button class="btn btn-sm btn-primary"
-                                                                onclick="editWallet(<?= $wallet['id'] ?>)">
-                                                                <i class="fa fa-edit"></i> Edit
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                            <?php endforeach; ?>
-                                        </tbody>
-                                    </table>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
                             <?php } ?>
 
                             <!-- Add/Edit Wallet Form -->
@@ -197,19 +197,19 @@ function get_wallet_addresses()
                         </div>
                         <!-- Session Messages Display -->
                         <?php if (!empty($success_msg)): ?>
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <i class="fa fa-check-circle me-2"></i>
-                                    <?php echo htmlspecialchars($success_msg); ?>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <i class="fa fa-check-circle me-2"></i>
+                                <?php echo htmlspecialchars($success_msg); ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
                         <?php endif; ?>
 
                         <?php if (!empty($error_msg)): ?>
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <i class="fa fa-exclamation-circle me-2"></i>
-                                    <?php echo htmlspecialchars($error_msg); ?>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="fa fa-exclamation-circle me-2"></i>
+                                <?php echo htmlspecialchars($error_msg); ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
                         <?php endif; ?>
                         <form enctype="multipart/form-data" action="php/add_shipment.php" method="POST"
                             autocomplete="off">
@@ -724,435 +724,435 @@ function get_wallet_addresses()
                                 // Get payment details for this tracking ID
                                 $payment_details = get_payment_details($ship['tracking_id']);
                                 ?>
-                                        <div class="shipment-card card" id="shipment_<?php echo $ship['id']; ?>">
-                                            <div class="shipment-header">
-                                                <div class="d-flex justify-content-between align-items-center flex-column flex-md-row">
-                                                    <div class="mb-2 mb-md-0">
-                                                        <h5 class="mb-0">Shipment #<?php echo $count ?></h5>
-                                                        <small class="text-muted">Tracking ID: <?= $ship['tracking_id'] ?></small>
+                                <div class="shipment-card card" id="shipment_<?php echo $ship['id']; ?>">
+                                    <div class="shipment-header">
+                                        <div class="d-flex justify-content-between align-items-center flex-column flex-md-row">
+                                            <div class="mb-2 mb-md-0">
+                                                <h5 class="mb-0">Shipment #<?php echo $count ?></h5>
+                                                <small class="text-muted">Tracking ID: <?= $ship['tracking_id'] ?></small>
+                                            </div>
+                                            <span class="status-badge <?php echo $status_class; ?>"><?= $real_status ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="shipment-body">
+                                        <form enctype="multipart/form-data" action="php/update_shipment.php" method="POST"
+                                            autocomplete="off">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="add_first" class="form-label">Sender Name</label>
+                                                        <input type="text" name="sender_name" class="form-control"
+                                                            value="<?= isset($ship['sender_name']) ? htmlspecialchars($ship['sender_name']) : " " ?>">
                                                     </div>
-                                                    <span class="status-badge <?php echo $status_class; ?>"><?= $real_status ?></span>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="add_first" class="form-label">Sender phone</label>
+                                                        <input type="text" name="sender_phone" class="form-control"
+                                                            value="<?= isset($ship['sender_phone']) ? htmlspecialchars($ship['sender_phone']) : " " ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="add_first" class="form-label">Sender email</label>
+                                                        <input type="email" name="sender_email" class="form-control"
+                                                            value="<?= isset($ship['sender_email']) ? htmlspecialchars($ship['sender_email']) : " " ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="add_first" class="form-label">Client Name</label>
+                                                        <input type="text" name="reciever_name" class="form-control"
+                                                            value="<?= $ship['reciever_name'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="add_first" class="form-label">Client phone</label>
+                                                        <input type="text" name="reciever_phone" class="form-control"
+                                                            value="<?= isset($ship['receiver_phone']) ? htmlspecialchars($ship['receiver_phone']) : " " ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="add_first" class="form-label">Client email</label>
+                                                        <input type="email" name="reciever_email" class="form-control"
+                                                            value="<?= isset($ship['receiver_email']) ? htmlspecialchars($ship['receiver_email']) : " " ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Package</label>
+                                                        <input type="text" name="package" class="form-control"
+                                                            value="<?= $ship['package'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Description</label>
+                                                        <input type="text" name="description" class="form-control"
+                                                            value="<?= $ship['description'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Package Type</label>
+                                                        <input type="text" name="package_type" class="form-control"
+                                                            value="<?= $ship['package_type'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Quantity</label>
+                                                        <input type="number" name="qty" class="form-control"
+                                                            value="<?= $ship['qty'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Weight</label>
+                                                        <input type="text" name="weight" class="form-control"
+                                                            value="<?= $ship['weight'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Service Type</label>
+                                                        <input type="text" name="service_type" class="form-control"
+                                                            value="<?= $ship['service_type'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Package Status</label>
+                                                        <input type="text" name="package_status" class="form-control"
+                                                            value="<?= $ship['package_status'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Booking Date</label>
+                                                        <input type="text" name="booking_date" class="form-control"
+                                                            value="<?= $ship['booking_date'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Arrival Date</label>
+                                                        <input type="text" name="arrival_date" class="form-control"
+                                                            value="<?= $ship['arrival_date'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Disperse Address</label>
+                                                        <input type="text" name="disperse_address" class="form-control"
+                                                            value="<?= $ship['disperse_address'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group country-select-container">
+                                                        <label class="form-label">Disperse Country</label>
+                                                        <select name="disperse_country" class="form-control country-select">
+                                                            <option><?= $ship['disperse_country'] ?></option>
+                                                            <option value="United States">United States</option>
+                                                            <option value="United Kingdom">United Kingdom</option>
+                                                            <option value="Canada">Canada</option>
+                                                            <option value="Australia">Australia</option>
+                                                            <option value="Germany">Germany</option>
+                                                            <option value="France">France</option>
+                                                            <option value="Japan">Japan</option>
+                                                            <option value="China">China</option>
+                                                            <option value="India">India</option>
+                                                            <option value="Brazil">Brazil</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Delivering Address</label>
+                                                        <input type="text" name="delivering_to" class="form-control"
+                                                            value="<?= $ship['delivering_to'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group country-select-container">
+                                                        <label class="form-label">Destination Country</label>
+                                                        <select name="delivering_country" class="form-control country-select">
+                                                            <option><?= $ship['delivering_country'] ?></option>
+                                                            <option value="United States">United States</option>
+                                                            <option value="United Kingdom">United Kingdom</option>
+                                                            <option value="Canada">Canada</option>
+                                                            <option value="Australia">Australia</option>
+                                                            <option value="Germany">Germany</option>
+                                                            <option value="France">France</option>
+                                                            <option value="Japan">Japan</option>
+                                                            <option value="China">China</option>
+                                                            <option value="India">India</option>
+                                                            <option value="Brazil">Brazil</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Current Destination</label>
+                                                        <input type="text" name="current_destination" class="form-control"
+                                                            value="<?= $ship['current_destination'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Progress</label>
+                                                        <input type="text" name="perc" class="form-control"
+                                                            value="<?= $ship['perc'] ?>">
+                                                        <div class="shipment-progress">
+                                                            <div class="shipment-progress-bar"
+                                                                style="width: <?= $ship['perc'] ?>%"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Photo</label>
+                                                        <input type="file" name="photo" class="form-control"
+                                                            value="<?= $ship['photo'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Status</label>
+                                                        <select name="status" class="form-control">
+                                                            <option><?= $status ?></option>
+                                                            <option><?= $status1 ?></option>
+                                                            <option><?= $status2 ?></option>
+                                                            <option><?= $status3 ?></option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="shipment-body">
-                                                <form enctype="multipart/form-data" action="php/update_shipment.php" method="POST"
-                                                    autocomplete="off">
+                                            <input type="hidden" name="id" value="<?= $ship['id'] ?>">
+                                            <input type="hidden" name="tracking_id" value="<?= $ship['tracking_id'] ?>">
+                                    </div>
+                                    <div class="shipment-footer">
+                                        <div class="d-flex justify-content-end flex-wrap">
+                                            <button type="submit" name="update" class="btn btn-primary btn-action">
+                                                <i class="fa fa-save"></i> Update
+                                            </button>
+                                            <button type="submit" name="delete" class="btn btn-danger btn-action"
+                                                onclick="return confirm('Are you sure you want to delete this shipment?');">
+                                                <i class="fa fa-trash"></i> Delete
+                                            </button>
+                                            <button type="button" class="btn btn-info btn-action"
+                                                onclick="toggleHistory('history_<?= $ship['tracking_id'] ?>')">
+                                                <i class="fa fa-history"></i> Shipping History
+                                            </button>
+                                            <button type="button" class="btn btn-warning btn-action"
+                                                onclick="togglePayment('payment_<?= $ship['tracking_id'] ?>')">
+                                                <i class="fa fa-credit-card"></i> Payment Details
+                                            </button>
+                                        </div>
+                                        </form>
+                                    </div>
+
+                                    <!-- Shipping History Section -->
+                                    <div class="history-section">
+                                        <div class="history-header"
+                                            onclick="toggleHistory('history_<?= $ship['tracking_id'] ?>')">
+                                            <h6 class="mb-0">
+                                                <i class="fa fa-chevron-down me-2"></i>
+                                                Shipping History (<?= count($shipment_history) ?> events)
+                                            </h6>
+                                        </div>
+                                        <div class="history-content" id="history_<?= $ship['tracking_id'] ?>">
+                                            <!-- Add New History Event Form -->
+                                            <div class="history-form">
+                                                <h6>Add New History Event</h6>
+                                                <form action="php/manage_shipment_history.php" method="POST">
                                                     <div class="row">
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-3">
                                                             <div class="form-group">
-                                                                <label for="add_first" class="form-label">Sender Name</label>
-                                                                <input type="text" name="sender_name" class="form-control"
-                                                                    value="<?= isset($ship['sender_name']) ? htmlspecialchars($ship['sender_name']) : " " ?>">
+                                                                <label class="form-label">Event Date</label>
+                                                                <input type="datetime-local" name="event_date"
+                                                                    class="form-control" required>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-3">
                                                             <div class="form-group">
-                                                                <label for="add_first" class="form-label">Sender phone</label>
-                                                                <input type="text" name="sender_phone" class="form-control"
-                                                                    value="<?= isset($ship['sender_phone']) ? htmlspecialchars($ship['sender_phone']) : " " ?>">
+                                                                <label class="form-label">Status</label>
+                                                                <input type="text" name="status" class="form-control"
+                                                                    placeholder="Status" required>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-3">
                                                             <div class="form-group">
-                                                                <label for="add_first" class="form-label">Sender email</label>
-                                                                <input type="email" name="sender_email" class="form-control"
-                                                                    value="<?= isset($ship['sender_email']) ? htmlspecialchars($ship['sender_email']) : " " ?>">
+                                                                <label class="form-label">Location</label>
+                                                                <input type="text" name="location" class="form-control"
+                                                                    placeholder="Location" required>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="add_first" class="form-label">Client Name</label>
-                                                                <input type="text" name="reciever_name" class="form-control"
-                                                                    value="<?= $ship['reciever_name'] ?>">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="add_first" class="form-label">Client phone</label>
-                                                                <input type="text" name="reciever_phone" class="form-control"
-                                                                    value="<?= isset($ship['receiver_phone']) ? htmlspecialchars($ship['receiver_phone']) : " " ?>">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="add_first" class="form-label">Client email</label>
-                                                                <input type="email" name="reciever_email" class="form-control"
-                                                                    value="<?= isset($ship['receiver_email']) ? htmlspecialchars($ship['receiver_email']) : " " ?>">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Package</label>
-                                                                <input type="text" name="package" class="form-control"
-                                                                    value="<?= $ship['package'] ?>">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12">
+                                                        <div class="col-md-3">
                                                             <div class="form-group">
                                                                 <label class="form-label">Description</label>
                                                                 <input type="text" name="description" class="form-control"
-                                                                    value="<?= $ship['description'] ?>">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Package Type</label>
-                                                                <input type="text" name="package_type" class="form-control"
-                                                                    value="<?= $ship['package_type'] ?>">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Quantity</label>
-                                                                <input type="number" name="qty" class="form-control"
-                                                                    value="<?= $ship['qty'] ?>">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Weight</label>
-                                                                <input type="text" name="weight" class="form-control"
-                                                                    value="<?= $ship['weight'] ?>">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Service Type</label>
-                                                                <input type="text" name="service_type" class="form-control"
-                                                                    value="<?= $ship['service_type'] ?>">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Package Status</label>
-                                                                <input type="text" name="package_status" class="form-control"
-                                                                    value="<?= $ship['package_status'] ?>">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Booking Date</label>
-                                                                <input type="text" name="booking_date" class="form-control"
-                                                                    value="<?= $ship['booking_date'] ?>">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Arrival Date</label>
-                                                                <input type="text" name="arrival_date" class="form-control"
-                                                                    value="<?= $ship['arrival_date'] ?>">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Disperse Address</label>
-                                                                <input type="text" name="disperse_address" class="form-control"
-                                                                    value="<?= $ship['disperse_address'] ?>">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group country-select-container">
-                                                                <label class="form-label">Disperse Country</label>
-                                                                <select name="disperse_country" class="form-control country-select">
-                                                                    <option><?= $ship['disperse_country'] ?></option>
-                                                                    <option value="United States">United States</option>
-                                                                    <option value="United Kingdom">United Kingdom</option>
-                                                                    <option value="Canada">Canada</option>
-                                                                    <option value="Australia">Australia</option>
-                                                                    <option value="Germany">Germany</option>
-                                                                    <option value="France">France</option>
-                                                                    <option value="Japan">Japan</option>
-                                                                    <option value="China">China</option>
-                                                                    <option value="India">India</option>
-                                                                    <option value="Brazil">Brazil</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Delivering Address</label>
-                                                                <input type="text" name="delivering_to" class="form-control"
-                                                                    value="<?= $ship['delivering_to'] ?>">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group country-select-container">
-                                                                <label class="form-label">Destination Country</label>
-                                                                <select name="delivering_country" class="form-control country-select">
-                                                                    <option><?= $ship['delivering_country'] ?></option>
-                                                                    <option value="United States">United States</option>
-                                                                    <option value="United Kingdom">United Kingdom</option>
-                                                                    <option value="Canada">Canada</option>
-                                                                    <option value="Australia">Australia</option>
-                                                                    <option value="Germany">Germany</option>
-                                                                    <option value="France">France</option>
-                                                                    <option value="Japan">Japan</option>
-                                                                    <option value="China">China</option>
-                                                                    <option value="India">India</option>
-                                                                    <option value="Brazil">Brazil</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Current Destination</label>
-                                                                <input type="text" name="current_destination" class="form-control"
-                                                                    value="<?= $ship['current_destination'] ?>">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Progress</label>
-                                                                <input type="text" name="perc" class="form-control"
-                                                                    value="<?= $ship['perc'] ?>">
-                                                                <div class="shipment-progress">
-                                                                    <div class="shipment-progress-bar"
-                                                                        style="width: <?= $ship['perc'] ?>%"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Photo</label>
-                                                                <input type="file" name="photo" class="form-control"
-                                                                    value="<?= $ship['photo'] ?>">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Status</label>
-                                                                <select name="status" class="form-control">
-                                                                    <option><?= $status ?></option>
-                                                                    <option><?= $status1 ?></option>
-                                                                    <option><?= $status2 ?></option>
-                                                                    <option><?= $status3 ?></option>
-                                                                </select>
+                                                                    placeholder="Description" required>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <input type="hidden" name="id" value="<?= $ship['id'] ?>">
                                                     <input type="hidden" name="tracking_id" value="<?= $ship['tracking_id'] ?>">
-                                            </div>
-                                            <div class="shipment-footer">
-                                                <div class="d-flex justify-content-end flex-wrap">
-                                                    <button type="submit" name="update" class="btn btn-primary btn-action">
-                                                        <i class="fa fa-save"></i> Update
+                                                    <button type="submit" name="add_history" class="btn btn-success btn-sm">
+                                                        <i class="fa fa-plus"></i> Add Event
                                                     </button>
-                                                    <button type="submit" name="delete" class="btn btn-danger btn-action"
-                                                        onclick="return confirm('Are you sure you want to delete this shipment?');">
-                                                        <i class="fa fa-trash"></i> Delete
-                                                    </button>
-                                                    <button type="button" class="btn btn-info btn-action"
-                                                        onclick="toggleHistory('history_<?= $ship['tracking_id'] ?>')">
-                                                        <i class="fa fa-history"></i> Shipping History
-                                                    </button>
-                                                    <button type="button" class="btn btn-warning btn-action"
-                                                        onclick="togglePayment('payment_<?= $ship['tracking_id'] ?>')">
-                                                        <i class="fa fa-credit-card"></i> Payment Details
-                                                    </button>
-                                                </div>
                                                 </form>
                                             </div>
 
-                                            <!-- Shipping History Section -->
-                                            <div class="history-section">
-                                                <div class="history-header"
-                                                    onclick="toggleHistory('history_<?= $ship['tracking_id'] ?>')">
-                                                    <h6 class="mb-0">
-                                                        <i class="fa fa-chevron-down me-2"></i>
-                                                        Shipping History (<?= count($shipment_history) ?> events)
-                                                    </h6>
+                                            <!-- Existing History Events -->
+                                            <?php if (empty($shipment_history)): ?>
+                                                <div class="text-center py-3 text-muted">
+                                                    <i class="fa fa-history fa-2x mb-2"></i>
+                                                    <p>No shipping history events found.</p>
                                                 </div>
-                                                <div class="history-content" id="history_<?= $ship['tracking_id'] ?>">
-                                                    <!-- Add New History Event Form -->
-                                                    <div class="history-form">
-                                                        <h6>Add New History Event</h6>
-                                                        <form action="php/manage_shipment_history.php" method="POST">
-                                                            <div class="row">
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        <label class="form-label">Event Date</label>
-                                                                        <input type="datetime-local" name="event_date"
-                                                                            class="form-control" required>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        <label class="form-label">Status</label>
-                                                                        <input type="text" name="status" class="form-control"
-                                                                            placeholder="Status" required>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        <label class="form-label">Location</label>
-                                                                        <input type="text" name="location" class="form-control"
-                                                                            placeholder="Location" required>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        <label class="form-label">Description</label>
-                                                                        <input type="text" name="description" class="form-control"
-                                                                            placeholder="Description" required>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <input type="hidden" name="tracking_id" value="<?= $ship['tracking_id'] ?>">
-                                                            <button type="submit" name="add_history" class="btn btn-success btn-sm">
-                                                                <i class="fa fa-plus"></i> Add Event
-                                                            </button>
-                                                        </form>
+                                            <?php else: ?>
+                                                <?php foreach ($shipment_history as $history): ?>
+                                                    <div class="history-item">
+                                                        <div class="timeline-event">
+                                                            <strong><?= $history['status'] ?></strong>
+                                                            at <?= $history['location'] ?>
+                                                            <br>
+                                                            <small class="text-muted"><?= $history['event_date'] ?></small>
+                                                            <div><?= $history['description'] ?></div>
+                                                        </div>
+                                                        <div class="history-actions">
+                                                            <form action="php/manage_shipment_history.php" method="POST"
+                                                                style="display: inline;">
+                                                                <input type="hidden" name="id" value="<?= $history['id'] ?>">
+                                                                <input type="hidden" name="tracking_id"
+                                                                    value="<?= $ship['tracking_id'] ?>">
+                                                                <button type="submit" name="delete_history"
+                                                                    class="btn btn-danger btn-sm"
+                                                                    onclick="return confirm('Are you sure you want to delete this history event?');">
+                                                                    <i class="fa fa-trash"></i>
+                                                                </button>
+                                                            </form>
+                                                        </div>
                                                     </div>
-
-                                                    <!-- Existing History Events -->
-                                                    <?php if (empty($shipment_history)): ?>
-                                                            <div class="text-center py-3 text-muted">
-                                                                <i class="fa fa-history fa-2x mb-2"></i>
-                                                                <p>No shipping history events found.</p>
-                                                            </div>
-                                                    <?php else: ?>
-                                                            <?php foreach ($shipment_history as $history): ?>
-                                                                    <div class="history-item">
-                                                                        <div class="timeline-event">
-                                                                            <strong><?= $history['status'] ?></strong>
-                                                                            at <?= $history['location'] ?>
-                                                                            <br>
-                                                                            <small class="text-muted"><?= $history['event_date'] ?></small>
-                                                                            <div><?= $history['description'] ?></div>
-                                                                        </div>
-                                                                        <div class="history-actions">
-                                                                            <form action="php/manage_shipment_history.php" method="POST"
-                                                                                style="display: inline;">
-                                                                                <input type="hidden" name="id" value="<?= $history['id'] ?>">
-                                                                                <input type="hidden" name="tracking_id"
-                                                                                    value="<?= $ship['tracking_id'] ?>">
-                                                                                <button type="submit" name="delete_history"
-                                                                                    class="btn btn-danger btn-sm"
-                                                                                    onclick="return confirm('Are you sure you want to delete this history event?');">
-                                                                                    <i class="fa fa-trash"></i>
-                                                                                </button>
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
-                                                            <?php endforeach; ?>
-                                                    <?php endif; ?>
-                                                </div>
-                                            </div>
-
-                                            <!-- Payment Details Section -->
-                                            <div class="payment-section">
-                                                <div class="payment-header"
-                                                    onclick="togglePayment('payment_<?= $ship['tracking_id'] ?>')">
-                                                    <h6 class="mb-0">
-                                                        <i class="fa fa-chevron-down me-2"></i>
-                                                        Payment Details
-                                                        <?php if ($payment_details): ?>
-                                                                <span class="status-badge <?=
-                                                                    $payment_details['payment_status'] == 'PENDING' ? 'payment-status-pending' :
-                                                                    ($payment_details['payment_status'] == 'PAID' ? 'payment-status-paid' : 'payment-status-failed')
-                                                                    ?> ms-2">
-                                                                    <?= $payment_details['payment_status'] ?>
-                                                                </span>
-                                                        <?php endif; ?>
-                                                    </h6>
-                                                </div>
-                                                <div class="payment-content" id="payment_<?= $ship['tracking_id'] ?>">
-                                                    <!-- Add/Edit Payment Details Form -->
-                                                    <div class="payment-form">
-                                                        <h6><?= $payment_details ? 'Update' : 'Add' ?> Payment Details</h6>
-                                                        <form action="php/manage_payment.php" method="POST">
-                                                            <div class="row">
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        <label class="form-label">Shipping Cost ($)</label>
-                                                                        <input type="number" step="0.01" name="shipping_cost"
-                                                                            class="form-control"
-                                                                            value="<?= $payment_details ? $payment_details['shipping_cost'] : '' ?>"
-                                                                            required>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        <label class="form-label">Clearance Cost ($)</label>
-                                                                        <input type="number" step="0.01" name="clearance_cost"
-                                                                            class="form-control"
-                                                                            value="<?= $payment_details ? $payment_details['clearance_cost'] : '' ?>"
-                                                                            required>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        <label class="form-label">Total Amount ($)</label>
-                                                                        <input type="number" step="0.01" name="total_amount"
-                                                                            class="form-control"
-                                                                            value="<?= $payment_details ? $payment_details['total_amount'] : '' ?>"
-                                                                            required>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        <label class="form-label">Payment Status</label>
-                                                                        <select name="payment_status" class="form-control" required>
-                                                                            <option value="PENDING" <?= $payment_details && $payment_details['payment_status'] == 'PENDING' ? 'selected' : '' ?>>PENDING</option>
-                                                                            <option value="PAID" <?= $payment_details && $payment_details['payment_status'] == 'PAID' ? 'selected' : '' ?>>PAID</option>
-                                                                            <option value="FAILED" <?= $payment_details && $payment_details['payment_status'] == 'FAILED' ? 'selected' : '' ?>>FAILED</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <input type="hidden" name="tracking_id" value="<?= $ship['tracking_id'] ?>">
-                                                            <?php if ($payment_details): ?>
-                                                                    <input type="hidden" name="payment_id"
-                                                                        value="<?= $payment_details['id'] ?>">
-                                                            <?php endif; ?>
-                                                            <button type="submit"
-                                                                name="<?= $payment_details ? 'update_payment' : 'add_payment' ?>"
-                                                                class="btn btn-success">
-                                                                <i class="fa fa-credit-card"></i>
-                                                                <?= $payment_details ? 'Update' : 'Add' ?> Payment
-                                                            </button>
-                                                            <?php if ($payment_details): ?>
-                                                                    <button type="submit" name="delete_payment" class="btn btn-danger"
-                                                                        onclick="return confirm('Are you sure you want to delete these payment details?');">
-                                                                        <i class="fa fa-trash"></i> Delete Payment
-                                                                    </button>
-                                                            <?php endif; ?>
-                                                        </form>
-                                                    </div>
-
-                                                    <!-- Existing Payment Details -->
-                                                    <?php if ($payment_details): ?>
-                                                            <div class="payment-item mt-3">
-                                                                <div>
-                                                                    <h6>Current Payment Details</h6>
-                                                                    <p><strong>Shipping Cost:</strong> $<?= $payment_details['shipping_cost'] ?>
-                                                                    </p>
-                                                                    <p><strong>Clearance Cost:</strong>
-                                                                        $<?= $payment_details['clearance_cost'] ?></p>
-                                                                    <p><strong>Total Amount:</strong> $<?= $payment_details['total_amount'] ?>
-                                                                    </p>
-                                                                    <p><strong>Status:</strong>
-                                                                        <span class="status-badge <?=
-                                                                            $payment_details['payment_status'] == 'PENDING' ? 'payment-status-pending' :
-                                                                            ($payment_details['payment_status'] == 'PAID' ? 'payment-status-paid' : 'payment-status-failed')
-                                                                            ?>">
-                                                                            <?= $payment_details['payment_status'] ?>
-                                                                        </span>
-                                                                    </p>
-                                                                    <p><strong>Last Updated:</strong> <?= $payment_details['updated_at'] ?></p>
-                                                                </div>
-                                                            </div>
-                                                    <?php else: ?>
-                                                            <div class="text-center py-3 text-muted">
-                                                                <i class="fa fa-credit-card fa-2x mb-2"></i>
-                                                                <p>No payment details found for this shipment.</p>
-                                                            </div>
-                                                    <?php endif; ?>
-                                                </div>
-                                            </div>
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
                                         </div>
-                                        <?php
+                                    </div>
+
+                                    <!-- Payment Details Section -->
+                                    <div class="payment-section">
+                                        <div class="payment-header"
+                                            onclick="togglePayment('payment_<?= $ship['tracking_id'] ?>')">
+                                            <h6 class="mb-0">
+                                                <i class="fa fa-chevron-down me-2"></i>
+                                                Payment Details
+                                                <?php if ($payment_details): ?>
+                                                    <span class="status-badge <?=
+                                                        $payment_details['payment_status'] == 'PENDING' ? 'payment-status-pending' :
+                                                        ($payment_details['payment_status'] == 'PAID' ? 'payment-status-paid' : 'payment-status-failed')
+                                                        ?> ms-2">
+                                                        <?= $payment_details['payment_status'] ?>
+                                                    </span>
+                                                <?php endif; ?>
+                                            </h6>
+                                        </div>
+                                        <div class="payment-content" id="payment_<?= $ship['tracking_id'] ?>">
+                                            <!-- Add/Edit Payment Details Form -->
+                                            <div class="payment-form">
+                                                <h6><?= $payment_details ? 'Update' : 'Add' ?> Payment Details</h6>
+                                                <form action="php/manage_payment.php" method="POST">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label class="form-label">Shipping Cost ($)</label>
+                                                                <input type="number" step="0.01" name="shipping_cost"
+                                                                    class="form-control"
+                                                                    value="<?= $payment_details ? $payment_details['shipping_cost'] : '' ?>"
+                                                                    required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label class="form-label">Clearance Cost ($)</label>
+                                                                <input type="number" step="0.01" name="clearance_cost"
+                                                                    class="form-control"
+                                                                    value="<?= $payment_details ? $payment_details['clearance_cost'] : '' ?>"
+                                                                    required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label class="form-label">Total Amount ($)</label>
+                                                                <input type="number" step="0.01" name="total_amount"
+                                                                    class="form-control"
+                                                                    value="<?= $payment_details ? $payment_details['total_amount'] : '' ?>"
+                                                                    required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label class="form-label">Payment Status</label>
+                                                                <select name="payment_status" class="form-control" required>
+                                                                    <option value="PENDING" <?= $payment_details && $payment_details['payment_status'] == 'PENDING' ? 'selected' : '' ?>>PENDING</option>
+                                                                    <option value="PAID" <?= $payment_details && $payment_details['payment_status'] == 'PAID' ? 'selected' : '' ?>>PAID</option>
+                                                                    <option value="FAILED" <?= $payment_details && $payment_details['payment_status'] == 'FAILED' ? 'selected' : '' ?>>FAILED</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" name="tracking_id" value="<?= $ship['tracking_id'] ?>">
+                                                    <?php if ($payment_details): ?>
+                                                        <input type="hidden" name="payment_id"
+                                                            value="<?= $payment_details['id'] ?>">
+                                                    <?php endif; ?>
+                                                    <button type="submit"
+                                                        name="<?= $payment_details ? 'update_payment' : 'add_payment' ?>"
+                                                        class="btn btn-success">
+                                                        <i class="fa fa-credit-card"></i>
+                                                        <?= $payment_details ? 'Update' : 'Add' ?> Payment
+                                                    </button>
+                                                    <?php if ($payment_details): ?>
+                                                        <button type="submit" name="delete_payment" class="btn btn-danger"
+                                                            onclick="return confirm('Are you sure you want to delete these payment details?');">
+                                                            <i class="fa fa-trash"></i> Delete Payment
+                                                        </button>
+                                                    <?php endif; ?>
+                                                </form>
+                                            </div>
+
+                                            <!-- Existing Payment Details -->
+                                            <?php if ($payment_details): ?>
+                                                <div class="payment-item mt-3">
+                                                    <div>
+                                                        <h6>Current Payment Details</h6>
+                                                        <p><strong>Shipping Cost:</strong> $<?= $payment_details['shipping_cost'] ?>
+                                                        </p>
+                                                        <p><strong>Clearance Cost:</strong>
+                                                            $<?= $payment_details['clearance_cost'] ?></p>
+                                                        <p><strong>Total Amount:</strong> $<?= $payment_details['total_amount'] ?>
+                                                        </p>
+                                                        <p><strong>Status:</strong>
+                                                            <span class="status-badge <?=
+                                                                $payment_details['payment_status'] == 'PENDING' ? 'payment-status-pending' :
+                                                                ($payment_details['payment_status'] == 'PAID' ? 'payment-status-paid' : 'payment-status-failed')
+                                                                ?>">
+                                                                <?= $payment_details['payment_status'] ?>
+                                                            </span>
+                                                        </p>
+                                                        <p><strong>Last Updated:</strong> <?= $payment_details['updated_at'] ?></p>
+                                                    </div>
+                                                </div>
+                                            <?php else: ?>
+                                                <div class="text-center py-3 text-muted">
+                                                    <i class="fa fa-credit-card fa-2x mb-2"></i>
+                                                    <p>No payment details found for this shipment.</p>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
                             }
                         }
                         ?>
@@ -1198,6 +1198,7 @@ function get_wallet_addresses()
         })();
     </script>
     <!-- Bootstrap JS Bundle with Popper -->
+    <script src="js/admin.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery-1.12.1.min.js"></script>
     <script src="js/popper.min.js%2bbootstrap.min.js.pagespeed.jc.LKWtDHPWPS.js"></script>
@@ -1218,126 +1219,6 @@ function get_wallet_addresses()
     <script>eval(mod_pagespeed_12zv6r3LZ0);</script>
     <script>eval(mod_pagespeed_wCsNvbfkPC);</script>
     <script>eval(mod_pagespeed_nENxee0pfk);</script>
-
-    <script>
-        function toggleAddForm() {
-            var form = document.getElementById('add_shipment_form');
-            if (form.style.display === 'block' || form.classList.contains('d-block')) {
-                form.style.display = 'none';
-                form.classList.remove('d-block');
-            } else {
-                form.style.display = 'block';
-                form.classList.add('d-block');
-                // Scroll to form for better UX
-                form.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        function toggleHistory(historyId) {
-            var historyContent = document.getElementById(historyId);
-            var historyHeader = historyContent.previousElementSibling;
-            var icon = historyHeader.querySelector('i');
-
-            if (historyContent.style.display === 'block' || historyContent.classList.contains('d-block')) {
-                historyContent.style.display = 'none';
-                historyContent.classList.remove('d-block');
-                icon.className = 'fa fa-chevron-down me-2';
-            } else {
-                historyContent.style.display = 'block';
-                historyContent.classList.add('d-block');
-                icon.className = 'fa fa-chevron-up me-2';
-                // Scroll to history section for better UX
-                historyContent.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-        }
-
-        function togglePayment(paymentId) {
-            var paymentContent = document.getElementById(paymentId);
-            var paymentHeader = paymentContent.previousElementSibling;
-            var icon = paymentHeader.querySelector('i');
-
-            if (paymentContent.style.display === 'block' || paymentContent.classList.contains('d-block')) {
-                paymentContent.style.display = 'none';
-                paymentContent.classList.remove('d-block');
-                icon.className = 'fa fa-chevron-down me-2';
-            } else {
-                paymentContent.style.display = 'block';
-                paymentContent.classList.add('d-block');
-                icon.className = 'fa fa-chevron-up me-2';
-                // Scroll to payment section for better UX
-                paymentContent.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-        }
-
-        function toggleWalletSection() {
-            var walletContent = document.getElementById('wallet_content');
-            var walletHeader = document.querySelector('.wallet-header');
-            var icon = walletHeader.querySelector('i');
-
-            if (walletContent.style.display === 'block' || walletContent.classList.contains('d-block')) {
-                walletContent.style.display = 'none';
-                walletContent.classList.remove('d-block');
-                icon.className = 'fa fa-chevron-down me-2';
-            } else {
-                walletContent.style.display = 'block';
-                walletContent.classList.add('d-block');
-                icon.className = 'fa fa-chevron-up me-2';
-                // Scroll to wallet section for better UX
-                document.getElementById('wallet_section').scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        function editWallet(id) {
-            // This would typically make an AJAX call to get wallet details
-            // For now, we'll just show a placeholder implementation
-            document.getElementById('wallet_form_title').textContent = 'Edit Wallet Address';
-            document.getElementById('wallet_id').value = id;
-
-            // Scroll to the form
-            document.getElementById('wallet_content').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function resetWalletForm() {
-            document.getElementById('wallet_form_title').textContent = 'Add New Wallet Address';
-            document.getElementById('wallet_id').value = '';
-            document.querySelector('form[name="wallet_form"]').reset();
-        }
-
-        // Make shipment cards editable on double click
-        document.addEventListener('DOMContentLoaded', function () {
-            var cards = document.querySelectorAll('.shipment-card');
-            cards.forEach(function (card) {
-                card.addEventListener('dblclick', function () {
-                    this.classList.toggle('edit-mode');
-                });
-            });
-
-            // Update progress bar when input changes
-            var progressInputs = document.querySelectorAll('input[name="perc"]');
-            progressInputs.forEach(function (input) {
-                input.addEventListener('input', function () {
-                    var progressBar = this.parentNode.querySelector('.shipment-progress-bar');
-                    if (progressBar) {
-                        progressBar.style.width = this.value + '%';
-                    }
-                });
-            });
-
-            // Additional fix for mobile devices
-            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                document.querySelectorAll('select').forEach(function (select) {
-                    select.addEventListener('focus', function () {
-                        // On mobile, ensure the dropdown doesn't resize the page
-                        document.body.style.overflow = 'hidden';
-                    });
-
-                    select.addEventListener('blur', function () {
-                        document.body.style.overflow = '';
-                    });
-                });
-            }
-        });
-    </script>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
     <script>
