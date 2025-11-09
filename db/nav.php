@@ -50,7 +50,7 @@ if ($c_page == $nav_config_pt.'tracking.php') {
 <div class="row align-items-center">
 <div class="col-lg-12">
 <nav class="navbar navbar-expand-lg navbar-light">
-<a style="color: navy; font-size: 20px;" class="navbar-brand" href="../index.php">Admin Control</a>
+<a style="color: navy; font-size: 20px;" class="nav-item" href="../index.php">Admin Control</a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 <span class="menu_icon"></span>
 </button>
@@ -62,9 +62,6 @@ if ($c_page == $nav_config_pt.'tracking.php') {
 <li class="nav-item">
 <a style="color: navy" class="nav-link <?=$tracking?>" href="../tracking.php">Tracking</a>
 </li>
-
-
-
 </nav>
 </div>
 </div>
