@@ -382,10 +382,6 @@ function get_wallet_addresses()
                                     </div>
                                 </div>
 
-
-                                <!-- JS -->
-
-
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="delivering_to" class="form-label">Delivering Address</label>
@@ -437,164 +433,6 @@ function get_wallet_addresses()
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- Styles (put in your CSS file or inside <style>) -->
-                                <style>
-                                    .custom-select-container {
-                                        max-width: 350px;
-                                        width: 100%;
-                                        position: relative;
-                                    }
-
-                                    .select-toggle {
-                                        width: 100%;
-                                        padding: 10px 14px;
-                                        border: 1px solid #ccc;
-                                        border-radius: 6px;
-                                        background: #fff;
-                                        cursor: pointer;
-                                        font-size: 15px;
-                                        text-align: left;
-                                        display: flex;
-                                        justify-content: space-between;
-                                        align-items: center;
-                                    }
-
-                                    .options {
-                                        position: absolute;
-                                        left: 0;
-                                        right: 0;
-                                        top: calc(100% + 6px);
-                                        margin: 0;
-                                        border: 1px solid #ddd;
-                                        border-radius: 6px;
-                                        background: #fff;
-                                        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-                                        max-height: 220px;
-                                        /* fixed height */
-                                        overflow-y: auto;
-                                        /* scrollable */
-                                        z-index: 9999;
-                                        display: none;
-                                        list-style: none;
-                                        padding: 6px 0;
-                                    }
-
-                                    .option {
-                                        padding: 8px 12px;
-                                        cursor: pointer;
-                                    }
-
-                                    .option:hover,
-                                    .option[aria-selected="true"] {
-                                        background: #f3f3f3;
-                                    }
-
-                                    .custom-select.open .options {
-                                        display: block;
-                                    }
-
-                                    .arrow {
-                                        margin-left: 10px;
-                                        font-size: 12px;
-                                    }
-                                </style>
-
-                                <!-- Script (IDs match the HTML above) -->
-                                <script>
-                                    (function () {
-                                        const root = document.getElementById('custom-country-1');
-                                        if (!root) return;
-
-                                        const selectWrap = root.querySelector('.custom-select');
-                                        const toggle = root.querySelector('#select-toggle-1');
-                                        const selectedText = toggle.querySelector('.selected-text');
-                                        const optionsList = root.querySelector('#options-list-1');
-                                        const options = optionsList.querySelectorAll('.option');
-                                        const hidden = document.getElementById('delivering_country_hidden');
-
-                                        // toggle open/close
-                                        toggle.addEventListener('click', (e) => {
-                                            e.stopPropagation();
-                                            selectWrap.classList.toggle('open');
-                                            const expanded = toggle.getAttribute('aria-expanded') === 'true';
-                                            toggle.setAttribute('aria-expanded', String(!expanded));
-                                        });
-
-                                        // click option
-                                        options.forEach(opt => {
-                                            opt.addEventListener('click', (e) => {
-                                                e.stopPropagation();
-                                                // remove aria-selected from others
-                                                options.forEach(o => o.setAttribute('aria-selected', 'false'));
-                                                opt.setAttribute('aria-selected', 'true');
-
-                                                const val = opt.getAttribute('data-value') || '';
-                                                selectedText.textContent = opt.textContent;
-                                                hidden.value = val;
-                                                selectWrap.classList.remove('open');
-                                                toggle.setAttribute('aria-expanded', 'false');
-                                                // optional: trigger change event on hidden input
-                                                const ev = new Event('change', { bubbles: true });
-                                                hidden.dispatchEvent(ev);
-                                            });
-                                        });
-
-                                        // close when clicking outside
-                                        document.addEventListener('click', (e) => {
-                                            if (!root.contains(e.target)) {
-                                                selectWrap.classList.remove('open');
-                                                toggle.setAttribute('aria-expanded', 'false');
-                                            }
-                                        });
-
-                                        // keyboard accessibility (basic)
-                                        toggle.addEventListener('keydown', (e) => {
-                                            if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
-                                                e.preventDefault();
-                                                selectWrap.classList.add('open');
-                                                toggle.setAttribute('aria-expanded', 'true');
-                                                optionsList.focus();
-                                            }
-                                        });
-
-                                        optionsList.addEventListener('keydown', (e) => {
-                                            const focusable = Array.from(options);
-                                            const idx = focusable.indexOf(document.activeElement);
-                                            if (e.key === 'ArrowDown') {
-                                                e.preventDefault();
-                                                const next = focusable[(idx + 1) % focusable.length];
-                                                next.focus();
-                                            } else if (e.key === 'ArrowUp') {
-                                                e.preventDefault();
-                                                const prev = focusable[(idx - 1 + focusable.length) % focusable.length];
-                                                prev.focus();
-                                            } else if (e.key === 'Enter') {
-                                                e.preventDefault();
-                                                if (document.activeElement && document.activeElement.classList.contains('option')) {
-                                                    document.activeElement.click();
-                                                }
-                                            } else if (e.key === 'Escape') {
-                                                selectWrap.classList.remove('open');
-                                                toggle.setAttribute('aria-expanded', 'false');
-                                                toggle.focus();
-                                            }
-                                        });
-
-                                        // make options focusable for keyboard nav
-                                        options.forEach(o => o.setAttribute('tabindex', '0'));
-                                    })();
-                                </script>
-
-
-
-
-
-
-
-
-
-
 
                                 <!--<div class="col-md-6">-->
                                 <!--    <div class="form-group country-select-container">-->
@@ -1164,39 +1002,7 @@ function get_wallet_addresses()
 
 
 
-    <script>
-        (function () {
-            const root = document.getElementById('custom-country');
-            const toggle = root.querySelector('.select-toggle');
-            const options = root.querySelectorAll('.option');
-            const list = root.querySelector('.options');
-            const hidden = document.getElementById('disperse_country_hidden');
 
-            toggle.addEventListener('click', () => {
-                root.querySelector('.custom-select').classList.toggle('open');
-                const expanded = toggle.getAttribute('aria-expanded') === 'true';
-                toggle.setAttribute('aria-expanded', String(!expanded));
-            });
-
-            options.forEach(opt => {
-                opt.addEventListener('click', () => {
-                    const val = opt.getAttribute('data-value');
-                    toggle.firstChild.textContent = opt.textContent; // shows selected text
-                    hidden.value = val;
-                    root.querySelector('.custom-select').classList.remove('open');
-                    toggle.setAttribute('aria-expanded', 'false');
-                });
-            });
-
-            // close when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!root.contains(e.target)) {
-                    root.querySelector('.custom-select').classList.remove('open');
-                    toggle.setAttribute('aria-expanded', 'false');
-                }
-            });
-        })();
-    </script>
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="js/admin.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
