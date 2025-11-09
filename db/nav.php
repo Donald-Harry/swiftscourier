@@ -42,15 +42,14 @@ if ($c_page == $nav_config_pt.'tracking.php') {
 }else{
 	$tracking = '';
 }
+?>
 
-
- ?>
 <header class="main_menu home_menu">
 <div class="container">
 <div class="row align-items-center">
 <div class="col-lg-12">
 <nav class="navbar navbar-expand-lg navbar-light">
-<a style="color: navy; font-size: 20px;" class="navbar-brand" href="../index.php">Admin Control</a>
+<a style="color: navy; font-size: 20px; font-weight: bold;" class="navbar-brand" href="../index.php">Admin Control</a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 <span class="menu_icon"></span>
 </button>
