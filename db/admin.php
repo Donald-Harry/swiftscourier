@@ -63,7 +63,7 @@ function get_wallet_addresses()
     include 'nav.php';
     ?>
     <?php
-    include 'admin.css';
+    include 'css/admin.css';
     ?>
 
     <section class="admin-section">
