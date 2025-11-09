@@ -50,7 +50,7 @@
       </div>
 
       <div class="cont-div">
-        <h1 class="cont-address">Working Hour:</h1>
+        <h1 class="cont-address">Working Hours:</h1>
         <p class="cont-desc-2">
           Mon - Fri: 8am - 5pm<br />
           Sat - Sun: 12noon - 5pm
