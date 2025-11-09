@@ -1,5 +1,5 @@
 <?php 
-$site_name = "speedeexpress";
-$site_url = 'https://www.speedeexpress.online';
+$site_name = "swiftexpress";
+$site_url = 'https://www.swiftexpress.online';
 $nav_config_pt = '/logistic/';
  ?>
