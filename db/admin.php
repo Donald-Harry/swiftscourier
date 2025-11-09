@@ -62,6 +62,9 @@ function get_wallet_addresses()
     <?php
     include 'nav.php';
     ?>
+    <?php
+    include 'admin.css';
+    ?>
 
     <section class="admin-section">
 
