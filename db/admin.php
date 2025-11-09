@@ -1097,13 +1097,13 @@ include'nav.php';
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="add_first" class="form-label">Client phone</label>
-                                    <input  type="text" name="reciever_phone" class="form-control" value="<?=$ship['reciever_phone']?>">
+                                    <input  type="text" name="reciever_phone" class="form-control" value="<?=isset($ship['receiver_phone']) ? htmlspecialchars($ship['receiver_phone']) : " " ?>">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="add_first" class="form-label">Client email</label>
-                                    <input  type="email" name="reciever_email" class="form-control" value="<?=$ship['reciever_email']?>">
+                                    <input  type="email" name="reciever_email" class="form-control" value="<?=isset($ship['receiver_email']) ? htmlspecialchars($ship['receiver_email']) : " " ?>">
                                 </div>
                             </div>
                                     <div class="col-md-6">
