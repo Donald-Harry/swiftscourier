@@ -1073,7 +1073,7 @@ include'nav.php';
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="add_first" class="form-label">Sender Name</label>
-                                    <input type="text" name="sender_name" class="form-control" value="<?=isset($ship['sender_name']) ? htmlspecialchars($ship['sender_name']): " " ?>>
+                                    <input type="text" name="sender_name" class="form-control" value="<?=isset($ship['sender_name']) ? htmlspecialchars($ship['sender_name']): " " ?> ">
                                 </div>
                             </div>
                             <div class="col-md-6">
