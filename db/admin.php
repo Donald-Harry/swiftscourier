@@ -647,13 +647,13 @@ include'nav.php';
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="booking_date" class="form-label">Booking Date</label>
-                                    <input required type="text" name="booking_date" class="form-control" placeholder="Booking Date">
+                                    <input required type="date" name="booking_date" class="form-control" placeholder="Booking Date">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="arrival_date" class="form-label">Arrival Date</label>
-                                    <input required type="text" name="arrival_date" class="form-control" placeholder="Arrival Date">
+                                    <input required type="date" name="arrival_date" class="form-control" placeholder="Arrival Date">
                                 </div>
                             </div>
                             <div class="col-md-6">
