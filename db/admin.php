@@ -1073,19 +1073,19 @@ include'nav.php';
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="add_first" class="form-label">Sender Name</label>
-                                    <input type="text" name="sender_name" class="form-control" value="<?=isset($ship['sender_name']) ? htmlspecialchars($ship['sender_name']): " " ?> ">
+                                    <input type="text" name="sender_name" class="form-control" value="<?=isset($ship['sender_name']) ? htmlspecialchars($ship['sender_name']) : " " ?>">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="add_first" class="form-label">Sender phone</label>
-                                    <input  type="text" name="sender_phone" class="form-control" value="<?=$ship['sender_phone']?>">
+                                    <input  type="text" name="sender_phone" class="form-control" value="<?=isset($ship['sender_phone']) ? htmlspecialchars($ship['sender_phone']) : " " ?>">
                                 </div>
                             </div>
                              <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="add_first" class="form-label">Sender email</label>
-                                    <input  type="email" name="sender_email" class="form-control" value="<?=$ship['sender_email']?>">
+                                    <input  type="email" name="sender_email" class="form-control" value="<?=isset($ship['sender_email']) ? htmlspecialchars($ship['sender_email']) : " " ?>">
                                 </div>
                             </div>
                             <div class="col-md-6">
