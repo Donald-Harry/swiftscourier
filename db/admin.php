@@ -440,7 +440,7 @@ function get_wallet_addresses()
             <div class="row">
                 <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center mb-4 flex-column flex-md-row">
-                        <h1 class="h3 md:pl-3 mb-3 mb-md-0">Shipment Management</h1>
+                        <h1 class="h3 pl-md-3 mb-3 mb-md-0">Shipment Management</h1>
                         <div>
                             <button class="btn btn-warning me-2" onclick="toggleWalletSection()">
                                 <i class="fa fa-wallet"></i> Manage Wallet Addresses
@@ -1582,7 +1582,7 @@ function get_wallet_addresses()
                                         </div>
                                     </div>
                                 </div>
-                            <?php
+                                <?php
                             }
                         }
                         ?>
