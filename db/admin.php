@@ -50,7 +50,7 @@ function get_wallet_addresses()
     <link rel="icon" href="img/xfavicon.png.pagespeed.ic.4ol6gLfWzM.png">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="/css/admin.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet"
         href="css/bootstrap.min.css%2banimate.css%2bowl.carousel.min.css%2bthemify-icons.css%2bflaticon.css%2bslick.css%2bnice-select.css%2ball.css%2bintlInputPhone.min.css.pagespeed.cc.WNqLfgNLMY.css" />
@@ -62,15 +62,9 @@ function get_wallet_addresses()
     <?php
     include 'nav.php';
     ?>
-    <?php
-    include 'css/admin.css';
-    ?>
 
     <section class="admin-section">
-
         <div class="container-fluid">
-
-
             <div class="row">
                 <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center mb-4 flex-column flex-md-row">
