@@ -583,43 +583,43 @@ function get_wallet_addresses()
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="add_first" class="form-label">Sender Name</label>
-                                        <input required id="add_first" type="text" name="sender_name"
-                                            class="form-control" placeholder="sender Name">
+                                        <input id="add_first" type="text" name="sender_name" class="form-control"
+                                            placeholder="sender Name">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="add_first" class="form-label">Sender phone</label>
-                                        <input id="add_first" type="text" name="sender_phone"
-                                            class="form-control" placeholder="sender phone">
+                                        <input id="add_first" type="text" name="sender_phone" class="form-control"
+                                            placeholder="sender phone">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="add_first" class="form-label">Sender email</label>
-                                        <input required id="add_first" type="email" name="sender_email"
-                                            class="form-control" placeholder="sender email">
+                                        <input id="add_first" type="email" name="sender_email" class="form-control"
+                                            placeholder="sender email">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="add_first" class="form-label">Client Name</label>
-                                        <input required id="add_first" type="text" name="reciever_name"
-                                            class="form-control" placeholder="Client Name">
+                                        <input id="add_first" type="text" name="reciever_name" class="form-control"
+                                            placeholder="Client Name">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="add_first" class="form-label">Client phone</label>
-                                        <input id="add_first" type="text" name="reciever_phone"
-                                            class="form-control" placeholder="Client phone">
+                                        <input id="add_first" type="text" name="reciever_phone" class="form-control"
+                                            placeholder="Client phone">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="add_first" class="form-label">Client email</label>
-                                        <input required id="add_first" type="email" name="reciever_email"
-                                            class="form-control" placeholder="Client email">
+                                        <input id="add_first" type="email" name="reciever_email" class="form-control"
+                                            placeholder="Client email">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
