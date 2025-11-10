@@ -433,10 +433,7 @@ function get_wallet_addresses()
     ?>
 
     <section class="admin-section">
-
         <div class="container-fluid">
-
-
             <div class="row">
                 <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center mb-4 flex-column flex-md-row">
@@ -593,7 +590,7 @@ function get_wallet_addresses()
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="add_first" class="form-label">Sender phone</label>
-                                        <input required id="add_first" type="text" name="sender_phone"
+                                        <input id="add_first" type="text" name="sender_phone"
                                             class="form-control" placeholder="sender phone">
                                     </div>
                                 </div>
@@ -614,7 +611,7 @@ function get_wallet_addresses()
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="add_first" class="form-label">Client phone</label>
-                                        <input required id="add_first" type="text" name="reciever_phone"
+                                        <input id="add_first" type="text" name="reciever_phone"
                                             class="form-control" placeholder="Client phone">
                                     </div>
                                 </div>
