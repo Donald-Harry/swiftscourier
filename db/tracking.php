@@ -2,12 +2,12 @@
 include 'php/functions.php';
 session_start();
 
-include 'livechat.php';
+include __DIR__ . 'livechat.php';
 
 
 if (isset($_POST['tracking_id']) || isset($_SESSION['tracking_id'])) {
     $tracking_id = sanitize($_POST['tracking_id']);
-    
+
     if (isset($_SESSION['tracking_id']) && empty($_POST['tracking_id'])) {
         $tracking_id = $_SESSION['tracking_id'];
     }
@@ -25,7 +25,7 @@ if (isset($_POST['tracking_id']) || isset($_SESSION['tracking_id'])) {
         }
 
     } else {
-      
+
         echo "<script>
                 alert('Tracking ID not found. Please check and try again.');
                 window.location.href = '../index.php';
@@ -34,7 +34,7 @@ if (isset($_POST['tracking_id']) || isset($_SESSION['tracking_id'])) {
     }
 
 } else {
- 
+
     echo "<script>
             alert('Please enter a tracking ID.');
             window.location.href = '../index.php';
@@ -60,36 +60,40 @@ if ($history_result->num_rows > 0) {
 
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US" class="scroll-smooth dark">
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="description" content="Swift Express Logistics - Premium Worldwide Logistics and Rail Transport Services" />
-    <meta name="keywords" content="logistics, rail transport, shipping, freight, courier, transport, global delivery, package tracking" />
+    <meta name="description"
+        content="Swift Express Logistics - Premium Worldwide Logistics and Rail Transport Services" />
+    <meta name="keywords"
+        content="logistics, rail transport, shipping, freight, courier, transport, global delivery, package tracking" />
     <meta name="author" content="Swift Express Logistics" />
     <meta name="robots" content="index, follow" />
     <meta name="google-site-verification" content="" />
 
     <!-- Modern Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Alpine.js -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
+
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Leaflet CSS for maps -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-          crossorigin=""/>
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
     <!-- Leaflet Awesome Markers -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-awesome-markers/2.0.2/leaflet.awesome-markers.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-awesome-markers/2.0.2/leaflet.awesome-markers.css">
 
     <link href="img/xbps.png" rel="shortcut icon">
     <title>Track Shipment - Swift Express Logistics</title>
@@ -138,11 +142,11 @@ if ($history_result->num_rows > 0) {
         [x-cloak] {
             display: none !important;
         }
-        
+
         body {
             top: 0px !important;
         }
-        
+
         .skiptranslate iframe {
             visibility: hidden !important;
         }
@@ -151,16 +155,16 @@ if ($history_result->num_rows > 0) {
         ::-webkit-scrollbar {
             width: 6px;
         }
-        
+
         ::-webkit-scrollbar-track {
             background: #1e293b;
         }
-        
+
         ::-webkit-scrollbar-thumb {
             background: #475569;
             border-radius: 3px;
         }
-        
+
         ::-webkit-scrollbar-thumb:hover {
             background: #64748b;
         }
@@ -169,27 +173,28 @@ if ($history_result->num_rows > 0) {
         * {
             transition: all 0.3s ease;
         }
-        
+
         /* Custom Swift Express Logistics colors */
         .bg-rail-primary {
             background-color: #0ea5e9;
         }
-        
+
         .text-rail-primary {
             color: #0ea5e9;
         }
-        
+
         .border-rail-primary {
             border-color: #0ea5e9;
         }
-        
+
         /* Map container styling */
-        #currentLocationMap, #routeMap {
+        #currentLocationMap,
+        #routeMap {
             position: relative !important;
             overflow: hidden;
             border-radius: 0.5rem;
         }
-        
+
         .leaflet-container {
             position: absolute !important;
             top: 0;
@@ -198,77 +203,105 @@ if ($history_result->num_rows > 0) {
             bottom: 0;
             z-index: 1;
         }
-        
+
         /* Enhanced map controls */
         .leaflet-control-zoom a {
             background: white !important;
             color: #333 !important;
             border: 1px solid #ccc !important;
         }
-        
+
         .dark .leaflet-control-zoom a {
             background: #374151 !important;
             color: white !important;
             border: 1px solid #4b5563 !important;
         }
-        
+
         .leaflet-popup-content-wrapper {
             border-radius: 8px;
         }
-        
+
         .dark .leaflet-popup-content-wrapper {
             background: #1f2937;
             color: white;
         }
-        
+
         /* Route animation */
         @keyframes dash {
             to {
                 stroke-dashoffset: -100;
             }
         }
-        
+
         .animated-route {
             stroke-dasharray: 10;
             animation: dash 60s linear infinite;
         }
-        
+
         /* Pulsing marker effect */
         @keyframes pulse-marker {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.7; }
-            100% { transform: scale(1); opacity: 1; }
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
-        
+
         .pulse-marker {
             animation: pulse-marker 2s infinite;
         }
 
         /* Floating animation */
         @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
         }
-        
+
         .floating {
             animation: float 6s ease-in-out infinite;
         }
-        
+
         /* Pulse animation */
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4); }
-            70% { box-shadow: 0 0 0 15px rgba(14, 165, 233, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0); }
+            0% {
+                box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(14, 165, 233, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(14, 165, 233, 0);
+            }
         }
-        
+
         .pulse-animation {
             animation: pulse 2s infinite;
         }
     </style>
 </head>
 
-<body class="font-inter bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100" x-data="{ loading: true }" x-cloak>
+<body class="font-inter bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100" x-data="{ loading: true }"
+    x-cloak>
     <!-- iOS-Compatible Preloader -->
     <div id="preloader" class="fixed inset-0 bg-white dark:bg-gray-900 z-[9999] flex items-center justify-center">
         <div class="text-center">
@@ -284,20 +317,23 @@ if ($history_result->num_rows > 0) {
     </div>
 
     <!-- Main Content -->
-    <div class="bg-gray-50 dark:bg-gray-900 py-8 md:py-12" x-init="setTimeout(() => { loading = false; document.getElementById('preloader').style.display = 'none'; }, 800)">
+    <div class="bg-gray-50 dark:bg-gray-900 py-8 md:py-12"
+        x-init="setTimeout(() => { loading = false; document.getElementById('preloader').style.display = 'none'; }, 800)">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Loading State -->
-            <div x-show="loading" class="flex flex-col items-center justify-center p-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
-                <div class="w-16 h-16 border-4 border-rail-primary border-t-transparent rounded-full animate-spin mb-4"></div>
+            <div x-show="loading"
+                class="flex flex-col items-center justify-center p-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+                <div class="w-16 h-16 border-4 border-rail-primary border-t-transparent rounded-full animate-spin mb-4">
+                </div>
                 <h4 class="text-lg font-medium text-gray-700 dark:text-gray-300">
-                    Fetching Result for Tracking Number: <?=get('tracking_id');?>...
+                    Fetching Result for Tracking Number: <?= get('tracking_id'); ?>...
                 </h4>
             </div>
 
             <!-- Tracking Result Container -->
             <div x-show="!loading" x-transition:enter="transition ease-out duration-300"
-                 x-transition:enter-start="opacity-0 transform scale-95"
-                 x-transition:enter-end="opacity-100 transform scale-100">
+                x-transition:enter-start="opacity-0 transform scale-95"
+                x-transition:enter-end="opacity-100 transform scale-100">
 
                 <!-- Header & Navigation -->
                 <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-6">
@@ -316,7 +352,8 @@ if ($history_result->num_rows > 0) {
                         </div>
                     </div>
                     <div class="mt-4 md:mt-0">
-                        <a href="/" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-rail-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all">
+                        <a href="/"
+                            class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-rail-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all">
                             <i class="fas fa-arrow-left mr-2"></i>
                             Back to Home
                         </a>
@@ -325,613 +362,711 @@ if ($history_result->num_rows > 0) {
 
                 <!-- Tracking Summary Card -->
                 <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden mb-6">
-                    <div class="px-6 py-5 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-rail-primary to-blue-600">
+                    <div
+                        class="px-6 py-5 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-rail-primary to-blue-600">
                         <div class="flex flex-col md:flex-row md:items-center md:justify-between">
                             <div class="mb-4 md:mb-0">
                                 <div class="flex items-center">
                                     <i class="fas fa-box text-white/90 mr-2 text-xl"></i>
                                     <h2 class="text-xl font-bold text-white">Tracking Number</h2>
                                 </div>
-                                <div class="mt-2 font-mono text-2xl md:text-3xl font-bold text-white opacity-90 flex items-center">
-                                    <?=get('tracking_id');?>
-                                    <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white text-rail-primary">
+                                <div
+                                    class="mt-2 font-mono text-2xl md:text-3xl font-bold text-white opacity-90 flex items-center">
+                                    <?= get('tracking_id'); ?>
+                                    <span
+                                        class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white text-rail-primary">
                                         Active
                                     </span>
                                 </div>
                             </div>
                             <div class="flex flex-col">
-                                <div class="flex items-center px-4 py-2 bg-white/20 backdrop-filter backdrop-blur-sm rounded-lg mb-2">
+                                <div
+                                    class="flex items-center px-4 py-2 bg-white/20 backdrop-filter backdrop-blur-sm rounded-lg mb-2">
                                     <i class="fas fa-info-circle text-white mr-2"></i>
                                     <span class="text-white font-medium">Current Status:</span>
-                                    <div class="ml-2 px-2 py-0.5 rounded-full bg-blue-500 text-white text-sm font-medium">
-                                        <?=get('package_status')?>
+                                    <div
+                                        class="ml-2 px-2 py-0.5 rounded-full bg-blue-500 text-white text-sm font-medium">
+                                        <?= get('package_status') ?>
                                     </div>
                                 </div>
                                 <div class="flex items-center text-white text-sm">
                                     <i class="far fa-clock mr-2 opacity-80"></i>
-                                    <span class="opacity-90">Last Updated: <?=get('booking_date')?></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                
-                  <!-- Shipment Information -->
-                    <div class="p-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                            <!-- Sender Information -->
-                            <div class="space-y-3 bg-blue-50/60 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
-                                <div class="flex items-center text-rail-primary mb-2">
-                                    <i class="fas fa-user mr-2"></i>
-                                    <h3 class="text-base font-semibold">Sender Information</h3>
-                                </div>
-                                <div class="space-y-2 text-sm">
-                                    <div class="flex items-center">
-                                        <i class="fas fa-user text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0"></i>
-                                        <span class="font-medium text-gray-800 dark:text-gray-200 break-words"><?=get('sender_name')?></span>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <i class="fas fa-map-marker-alt text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0 mt-0.5"></i>
-                                        <span class="font-medium text-gray-700 dark:text-gray-300 break-words"><?=get('disperse_address')?>, <?=get('disperse_country')?></span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <i class="fas fa-phone text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0"></i>
-                                        <span class="font-medium text-gray-700 dark:text-gray-300 break-words"><?=get('sender_phone')?></span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <i class="fas fa-envelope text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0"></i>
-                                        <span class="font-medium text-gray-700 dark:text-gray-300 break-words"><?=get('sender_email')?></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Receiver Information -->
-                            <div class="space-y-3 bg-blue-50/60 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
-                                <div class="flex items-center text-rail-primary mb-2">
-                                    <i class="fas fa-user mr-2"></i>
-                                    <h3 class="text-base font-semibold">Receiver Information</h3>
-                                </div>
-                                <div class="space-y-2 text-sm">
-                                    <div class="flex items-center">
-                                        <i class="fas fa-user text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0"></i>
-                                        <span class="font-medium text-gray-800 dark:text-gray-200 break-words"><?=get('reciever_name')?></span>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <i class="fas fa-map-marker-alt text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0 mt-0.5"></i>
-                                        <span class="font-medium text-gray-700 dark:text-gray-300 break-words"><?=get('delivering_to')?>, <?=get('delivering_country')?></span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <i class="fas fa-phone text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0"></i>
-                                        <span class="font-medium text-gray-700 dark:text-gray-300 break-words"><?=get('reciever_phone')?></span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <i class="fas fa-envelope text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0"></i>
-                                        <span class="font-medium text-gray-700 dark:text-gray-300 break-words"><?=get('reciever_email')?></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Shipment Details -->
-                            <div class="space-y-3 bg-blue-50/60 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
-                                <div class="flex items-center text-rail-primary mb-2">
-                                    <i class="fas fa-info-circle mr-2"></i>
-                                    <h3 class="text-base font-semibold">Shipment Details</h3>
-                                </div>
-                                <div class="space-y-2 text-sm">
-                                    <div class="flex items-center">
-                                        <i class="fas fa-weight-hanging text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0"></i>
-                                        <span class="text-gray-500 dark:text-gray-400 mr-2">Weight:</span>
-                                        <span class="font-medium text-gray-800 dark:text-gray-200"><?=number_format(get('weight'),2)?> kg</span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <i class="fas fa-box text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0"></i>
-                                        <span class="text-gray-500 dark:text-gray-400 mr-2">Type:</span>
-                                        <span class="font-medium text-gray-800 dark:text-gray-200"><?=get('package_TYPE')?></span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <i class="far fa-calendar-alt text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0"></i>
-                                        <span class="text-gray-500 dark:text-gray-400 mr-2">Shipped:</span>
-                                        <span class="font-medium text-gray-800 dark:text-gray-200"><?=get('booking_date')?></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Status Information -->
-                            <div class="space-y-3 bg-blue-50/60 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
-                                <div class="flex items-center text-rail-primary mb-2">
-                                    <i class="fas fa-map-marker-alt mr-2"></i>
-                                    <h3 class="text-base font-semibold">Status Information</h3>
-                                </div>
-                                <div class="space-y-2 text-sm">
-                                    <div class="flex items-center">
-                                        <i class="fas fa-truck text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0"></i>
-                                        <span class="text-gray-500 dark:text-gray-400 mr-2">Status:</span>
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
-                                            <?=get('package_status')?>
-                                        </span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <i class="fas fa-location-arrow text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0"></i>
-                                        <span class="text-gray-500 dark:text-gray-400 mr-2">Location:</span>
-                                        <span class="font-medium text-gray-800 dark:text-gray-200"><?=get('current_destination')?></span>
-                                    </div>
+                                    <span class="opacity-90">Last Updated: <?= get('booking_date') ?></span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Shipment Progress Tracker -->
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden mb-6">
-                    <div class="px-6 py-4 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
-                        <h3 class="text-lg font-bold text-gray-800 dark:text-white">Shipment Progress</h3>
-                    </div>
-                    <div class="p-6">
-                        <div class="relative">
-                            <!-- Progress Lines -->
-                            <div class="hidden md:flex absolute top-1/2 left-0 w-full h-1 transform -translate-y-1/2 z-0">
-                                <!-- Line 1: Order Confirmed to Picked -->
-                                <div class="h-full flex-1 bg-rail-primary"></div>
 
-                                <!-- Line 2: Picked to On The Way -->
-                                <div class="h-full flex-1 bg-rail-primary"></div>
-
-                                <!-- Line 3: On The Way to Custom Hold -->
-                                <div class="h-full flex-1 bg-blue-500"></div>
-
-                                <!-- Line 4: Custom Hold to Delivered -->
-                                <div class="h-full flex-1 bg-green-500"></div>
+                <!-- Shipment Information -->
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Sender Information -->
+                        <div
+                            class="space-y-3 bg-blue-50/60 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
+                            <div class="flex items-center text-rail-primary mb-2">
+                                <i class="fas fa-user mr-2"></i>
+                                <h3 class="text-base font-semibold">Sender Information</h3>
                             </div>
-
-                            <!-- Mobile Progress Line with Colored Segments -->
-                            <div class="md:hidden absolute top-0 left-8 h-full z-0 flex flex-col">
-                                <!-- Line 1: To Picked -->
-                                <div class="w-1 flex-1 bg-rail-primary"></div>
-
-                                <!-- Line 2: To On The Way -->
-                                <div class="w-1 flex-1 bg-rail-primary"></div>
-
-                                <!-- Line 3: To Custom Hold -->
-                                <div class="w-1 flex-1 bg-blue-500"></div>
-
-                                <!-- Line 4: To Delivered -->
-                                <div class="w-1 flex-1 bg-green-500"></div>
-                            </div>
-
-                            <!-- Progress Steps -->
-                            <div class="flex flex-col md:flex-row justify-between relative z-10">
-                                <!-- Step 1: Order Confirmed -->
-                                <div class="flex md:block md:text-center mb-8 md:mb-0">
-                                    <div class="flex-shrink-0 flex items-center justify-center w-16 h-16 md:mx-auto rounded-full bg-rail-primary text-white shadow-lg border-4 border-white dark:border-gray-800">
-                                        <i class="fas fa-check text-xl"></i>
-                                    </div>
-                                    <div class="ml-4 md:ml-0 md:mt-3">
-                                        <h4 class="text-sm font-semibold text-gray-900 dark:text-white">Order Confirmed</h4>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1"><?=get('booking_date')?></p>
-                                    </div>
-                                </div>
-
-                                <!-- Step 2: Picked by Courier -->
-                                <div class="flex md:block md:text-center mb-8 md:mb-0">
-                                    <div class="flex-shrink-0 flex items-center justify-center w-16 h-16 md:mx-auto rounded-full bg-rail-primary text-white shadow-lg border-4 border-white dark:border-gray-800">
-                                        <i class="fas fa-truck text-xl"></i>
-                                    </div>
-                                    <div class="ml-4 md:ml-0 md:mt-3">
-                                        <h4 class="text-sm font-semibold text-gray-900 dark:text-white">Picked by Courier</h4>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1"><?=get('booking_date')?></p>
-                                    </div>
-                                </div>
-
-                                <!-- Step 3: On The Way -->
-                                <div class="flex md:block md:text-center mb-8 md:mb-0">
-                                    <div class="flex-shrink-0 flex items-center justify-center w-16 h-16 md:mx-auto rounded-full bg-rail-primary text-white shadow-lg border-4 border-white dark:border-gray-800">
-                                        <i class="fas fa-shipping-fast text-xl"></i>
-                                    </div>
-                                    <div class="ml-4 md:ml-0 md:mt-3">
-                                        <h4 class="text-sm font-semibold text-gray-900 dark:text-white">On The Way</h4>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">In Transit</p>
-                                    </div>
-                                </div>
-
-                                <!-- Step 4: Custom Hold -->
-                                <div class="flex md:block md:text-center mb-8 md:mb-0">
-                                    <div class="flex-shrink-0 flex items-center justify-center w-16 h-16 md:mx-auto rounded-full bg-blue-500 text-white shadow-lg border-4 border-white dark:border-gray-800">
-                                        <i class="fas fa-pause text-xl"></i>
-                                    </div>
-                                    <div class="ml-4 md:ml-0 md:mt-3">
-                                        <h4 class="text-sm font-semibold text-gray-900 dark:text-white">Current Location</h4>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1"><?=get('current_destination')?></p>
-                                    </div>
-                                </div>
-
-                                <!-- Step 5: Delivered -->
-                                <div class="flex md:block md:text-center">
-                                    <div class="flex-shrink-0 flex items-center justify-center w-16 h-16 md:mx-auto rounded-full bg-green-500 text-white shadow-lg border-4 border-white dark:border-gray-800">
-                                        <i class="fas fa-flag-checkered text-xl"></i>
-                                    </div>
-                                    <div class="ml-4 md:ml-0 md:mt-3">
-                                        <h4 class="text-sm font-semibold text-gray-900 dark:text-white">Delivered</h4>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Est. <?=get('arrival_date')?></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Content Grid Layout -->
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-                    <!-- Left Column: Shipping Timeline & History -->
-                    <div class="lg:order-1 space-y-6">
-                        <!-- Shipping Timeline -->
-                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
-                            <div class="px-6 py-4 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
+                            <div class="space-y-2 text-sm">
                                 <div class="flex items-center">
-                                    <i class="fas fa-stream text-rail-primary mr-2"></i>
-                                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">Shipping Timeline</h3>
+                                    <i class="fas fa-user text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0"></i>
+                                    <span
+                                        class="font-medium text-gray-800 dark:text-gray-200 break-words"><?= get('sender_name') ?></span>
                                 </div>
-                            </div>
-                            <div class="p-6">
-                                <div class="space-y-6">
-                                    <!-- Default timeline -->
-                                    <div class="flex items-start">
-                                        <div class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-rail-primary text-white shadow-md border-2 border-white dark:border-gray-800">
-                                            <i class="fas fa-map-marker-alt text-xs"></i>
-                                        </div>
-                                        <div class="ml-4">
-                                            <div class="flex items-center">
-                                                <span class="text-xs font-medium text-gray-500 dark:text-gray-400"><?=get('booking_date')?></span>
-                                            </div>
-                                            <div class="mt-1">
-                                                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
-                                                    FROM
-                                                </span>
-                                            </div>
-                                            <div class="mt-2 text-sm text-gray-700 dark:text-gray-300">
-                                                <p class="font-medium"><?=get('disperse_address')?></p>
-                                                <p class="mt-1 text-gray-600 dark:text-gray-400"><?=get('disperse_country')?></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="flex items-start">
-                                        <div class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-blue-500 text-white shadow-md border-2 border-white dark:border-gray-800">
-                                            <i class="fas fa-location-arrow text-xs"></i>
-                                        </div>
-                                        <div class="ml-4">
-                                            <div class="mt-1">
-                                                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
-                                                    CURRENTLY IN
-                                                </span>
-                                            </div>
-                                            <div class="mt-2 text-sm text-gray-700 dark:text-gray-300">
-                                                <p class="font-medium"><?=get('current_destination')?></p>
-                                                <p class="mt-1 text-gray-600 dark:text-gray-400"><?=get('package_status')?></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="flex items-start">
-                                        <div class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-green-500 text-white shadow-md border-2 border-white dark:border-gray-800">
-                                            <i class="fas fa-flag-checkered text-xs"></i>
-                                        </div>
-                                        <div class="ml-4">
-                                            <div class="flex items-center">
-                                                <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Est. <?=get('arrival_date')?></span>
-                                            </div>
-                                            <div class="mt-1">
-                                                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
-                                                    TO
-                                                </span>
-                                            </div>
-                                            <div class="mt-2 text-sm text-gray-700 dark:text-gray-300">
-                                                <p class="font-medium"><?=get('delivering_to')?></p>
-                                                <p class="mt-1 text-gray-600 dark:text-gray-400"><?=get('delivering_country')?></p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="flex items-start">
+                                    <i
+                                        class="fas fa-map-marker-alt text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0 mt-0.5"></i>
+                                    <span
+                                        class="font-medium text-gray-700 dark:text-gray-300 break-words"><?= get('disperse_address') ?>,
+                                        <?= get('disperse_country') ?></span>
                                 </div>
-                            </div>
-                        </div>
-
-                        <!-- Shipping History -->
-                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
-                            <div class="px-6 py-4 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
                                 <div class="flex items-center">
-                                    <i class="fas fa-history text-rail-primary mr-2"></i>
-                                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">Shipping History</h3>
+                                    <i class="fas fa-phone text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0"></i>
+                                    <span
+                                        class="font-medium text-gray-700 dark:text-gray-300 break-words"><?= get('sender_phone') ?></span>
                                 </div>
-                            </div>
-                            <div class="p-6">
-                                <div class="relative">
-                                    <!-- Timeline Line -->
-                                    <div class="absolute top-0 left-4 h-full w-0.5 bg-gray-200 dark:bg-gray-600 z-0"></div>
-
-                                    <!-- Timeline Items -->
-                                    <div class="space-y-6">
-                                        <?php if (!empty($shipping_history)): ?>
-                                            <?php foreach ($shipping_history as $index => $event): ?>
-                                                <div class="relative z-10 flex items-start">
-                                                    <div class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full 
-                                                        <?= $index === 0 ? 'bg-green-500' : 'bg-rail-primary' ?> 
-                                                        text-white shadow-md border-2 border-white dark:border-gray-800">
-                                                        <?php if ($index === 0): ?>
-                                                            <i class="fas fa-check text-xs"></i>
-                                                        <?php else: ?>
-                                                            <i class="fas fa-info text-xs"></i>
-                                                        <?php endif; ?>
-                                                    </div>
-                                                    <div class="ml-4">
-                                                        <div class="flex items-center">
-                                                            <span class="text-xs font-medium text-gray-500 dark:text-gray-400">
-                                                                <?= date('M d, Y - h:i A', strtotime($event['event_date'])) ?>
-                                                            </span>
-                                                        </div>
-                                                        <div class="mt-1">
-                                                            <span class="px-2 py-1 text-xs font-semibold rounded-full 
-                                                                <?= $index === 0 ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' : 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200' ?>">
-                                                                <?= htmlspecialchars($event['status']) ?>
-                                                            </span>
-                                                        </div>
-                                                        <div class="mt-2 text-sm text-gray-700 dark:text-gray-300">
-                                                            <p class="font-medium"><?= htmlspecialchars($event['location']) ?></p>
-                                                            <p class="mt-1 text-gray-600 dark:text-gray-400"><?= htmlspecialchars($event['description']) ?></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            <?php endforeach; ?>
-                                        <?php else: ?>
-                                            <!-- Default history if no history available -->
-                                            <div class="text-center py-8">
-                                                <i class="fas fa-history text-gray-400 dark:text-gray-500 text-4xl mb-4"></i>
-                                                <h4 class="text-lg font-medium text-gray-600 dark:text-gray-400">No Shipping History Available</h4>
-                                                <p class="text-sm text-gray-500 dark:text-gray-500 mt-2">Tracking updates will appear here as your shipment progresses.</p>
-                                            </div>
-                                        <?php endif; ?>
-                                    </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-envelope text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0"></i>
+                                    <span
+                                        class="font-medium text-gray-700 dark:text-gray-300 break-words"><?= get('sender_email') ?></span>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Center/Right Column: Package Route Map -->
-                    <div class="lg:order-2 lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
-                        <div class="flex items-center px-6 py-4 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
-                            <i class="fas fa-route text-rail-primary mr-2"></i>
-                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">Package Journey Map</h3>
-                            <span class="ml-auto text-xs text-gray-500 dark:text-gray-400">Live Global Tracking</span>
-                        </div>
-                        <div class="p-0">
-                            <div class="relative h-[600px]">
-                                <!-- Leaflet.js map for route visualization -->
-                                <div id="routeMap" class="w-full h-full overflow-hidden"></div>
-
-                                <!-- Map Controls Overlay -->
-                                <div class="absolute top-4 right-4 flex flex-col space-y-2">
-                                    <button id="fitBoundsBtn" class="bg-white dark:bg-gray-800 p-2 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                                        <i class="fas fa-expand text-gray-700 dark:text-gray-300"></i>
-                                    </button>
-                                    <button id="toggleSatelliteBtn" class="bg-white dark:bg-gray-800 p-2 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                                        <i class="fas fa-satellite text-gray-700 dark:text-gray-300"></i>
-                                    </button>
+                        <!-- Receiver Information -->
+                        <div
+                            class="space-y-3 bg-blue-50/60 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
+                            <div class="flex items-center text-rail-primary mb-2">
+                                <i class="fas fa-user mr-2"></i>
+                                <h3 class="text-base font-semibold">Receiver Information</h3>
+                            </div>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex items-center">
+                                    <i class="fas fa-user text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0"></i>
+                                    <span
+                                        class="font-medium text-gray-800 dark:text-gray-200 break-words"><?= get('reciever_name') ?></span>
                                 </div>
-
-                                <!-- Route Info Overlay -->
-                                <div class="absolute bottom-4 left-4 bg-white dark:bg-gray-800 bg-opacity-95 dark:bg-opacity-95 backdrop-filter backdrop-blur-sm p-4 rounded-lg shadow-lg max-w-sm border border-gray-200 dark:border-gray-600">
-                                    <h4 class="text-sm font-semibold text-gray-800 dark:text-white mb-3">Shipment Route Details</h4>
-
-                                    <div class="space-y-3">
-                                        <div class="flex items-start">
-                                            <div class="flex-shrink-0 h-6 w-6 rounded-full bg-blue-500 border-2 border-white dark:border-gray-800 shadow-sm flex items-center justify-center mt-0.5">
-                                                <span class="text-white text-xs font-bold">A</span>
-                                            </div>
-                                            <div class="ml-2">
-                                                <p class="text-xs font-medium text-gray-900 dark:text-white">Origin Point</p>
-                                                <p class="text-xs text-gray-600 dark:text-gray-300"><?=get('disperse_country')?></p>
-                                            </div>
-                                        </div>
-
-                                        <div class="flex items-start">
-                                            <div class="flex-shrink-0 h-6 w-6 rounded-full bg-rail-primary border-2 border-white dark:border-gray-800 shadow-sm flex items-center justify-center mt-0.5 pulse-marker">
-                                                <span class="text-white text-xs font-bold">B</span>
-                                            </div>
-                                            <div class="ml-2">
-                                                <p class="text-xs font-medium text-gray-900 dark:text-white">Current Location</p>
-                                                <p class="text-xs text-gray-600 dark:text-gray-300"><?=get('current_destination')?></p>
-                                                <p class="text-xs text-gray-500 dark:text-gray-400">
-                                                    Status: <?=get('package_status')?>
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div class="flex items-start">
-                                            <div class="flex-shrink-0 h-6 w-6 rounded-full bg-green-500 border-2 border-white dark:border-gray-800 shadow-sm flex items-center justify-center mt-0.5">
-                                                <span class="text-white text-xs font-bold">C</span>
-                                            </div>
-                                            <div class="ml-2">
-                                                <p class="text-xs font-medium text-gray-900 dark:text-white">Destination</p>
-                                                <p class="text-xs text-gray-600 dark:text-gray-300"><?=get('delivering_country')?></p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">
-                                        <div class="flex items-center justify-between mb-2">
-                                            <div class="flex items-center">
-                                                <i class="fas fa-route text-rail-primary mr-1 text-xs"></i>
-                                                <span class="text-xs font-medium text-gray-700 dark:text-gray-300">Estimated Distance:</span>
-                                            </div>
-                                            <span id="route_distance" class="text-xs font-semibold text-rail-primary">Calculating...</span>
-                                        </div>
-                                        <div class="flex items-center justify-between">
-                                            <div class="flex items-center">
-                                                <i class="far fa-clock text-rail-primary mr-1 text-xs"></i>
-                                                <span class="text-xs font-medium text-gray-700 dark:text-gray-300">Est. Time:</span>
-                                            </div>
-                                            <span id="route_time" class="text-xs font-semibold text-rail-primary"><?=get('arrival_date')?></span>
-                                        </div>
-                                    </div>
+                                <div class="flex items-start">
+                                    <i
+                                        class="fas fa-map-marker-alt text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0 mt-0.5"></i>
+                                    <span
+                                        class="font-medium text-gray-700 dark:text-gray-300 break-words"><?= get('delivering_to') ?>,
+                                        <?= get('delivering_country') ?></span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-phone text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0"></i>
+                                    <span
+                                        class="font-medium text-gray-700 dark:text-gray-300 break-words"><?= get('reciever_phone') ?></span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-envelope text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0"></i>
+                                    <span
+                                        class="font-medium text-gray-700 dark:text-gray-300 break-words"><?= get('reciever_email') ?></span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Package Information Card -->
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden mb-6">
-                    <div class="px-6 py-4 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
-                        <div class="flex items-center">
-                            <i class="fas fa-box-open text-rail-primary mr-2"></i>
-                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">Package Details</h3>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex flex-col md:flex-row">
-                            <?php if (get('photo') && file_exists('uploads/' . get('photo'))): ?>
-                            <div class="md:w-1/4 mb-6 md:mb-0 md:pr-6">
-                                <div class="bg-gray-100 dark:bg-gray-700 p-2 rounded-lg">
-                                    <img src="uploads/<?=get('photo')?>"
-                                        class="w-full h-auto rounded-lg object-cover"
-                                        alt="Parcel photo">
-                                </div>
+                        <!-- Shipment Details -->
+                        <div
+                            class="space-y-3 bg-blue-50/60 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
+                            <div class="flex items-center text-rail-primary mb-2">
+                                <i class="fas fa-info-circle mr-2"></i>
+                                <h3 class="text-base font-semibold">Shipment Details</h3>
                             </div>
-                            <?php endif; ?>
-                            
-                            <div class="<?= (get('photo') && file_exists('uploads/' . get('photo'))) ? 'md:w-3/4' : 'w-full' ?>">
-                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
-                                        <div class="flex items-center mb-2">
-                                            <i class="fas fa-user text-rail-primary mr-2"></i>
-                                            <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Sender's Name</h4>
-                                        </div>
-                                        <p class="text-gray-700 dark:text-gray-300 break-words"><?=get('sender_name')?></p>
-                                    </div>
-
-                                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
-                                        <div class="flex items-center mb-2">
-                                            <i class="fas fa-user text-rail-primary mr-2"></i>
-                                            <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Receiver's Name</h4>
-                                        </div>
-                                        <p class="text-gray-700 dark:text-gray-300 break-words"><?=get('reciever_name')?></p>
-                                    </div>
-
-                                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
-                                        <div class="flex items-center mb-2">
-                                            <i class="fas fa-box text-rail-primary mr-2"></i>
-                                            <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Package</h4>
-                                        </div>
-                                        <p class="text-gray-700 dark:text-gray-300 break-words"><?=get('package')?></p>
-                                    </div>
-
-                                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
-                                        <div class="flex items-center mb-2">
-                                            <i class="fas fa-align-left text-rail-primary mr-2"></i>
-                                            <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Description</h4>
-                                        </div>
-                                        <p class="text-gray-700 dark:text-gray-300 break-words"><?=get('description')?></p>
-                                    </div>
-
-                                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
-                                        <div class="flex items-center mb-2">
-                                            <i class="fas fa-barcode text-rail-primary mr-2"></i>
-                                            <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Product ID</h4>
-                                        </div>
-                                        <p class="text-gray-700 dark:text-gray-300 break-words"><?=get('tracking_id')?></p>
-                                    </div>
-
-                                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
-                                        <div class="flex items-center mb-2">
-                                            <i class="fas fa-tag text-rail-primary mr-2"></i>
-                                            <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Package Type</h4>
-                                        </div>
-                                        <p class="text-gray-700 dark:text-gray-300 break-words"><?=get('package_TYPE')?></p>
-                                    </div>
-
-                                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
-                                        <div class="flex items-center mb-2">
-                                            <i class="fas fa-cubes text-rail-primary mr-2"></i>
-                                            <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Quantity</h4>
-                                        </div>
-                                        <p class="text-gray-700 dark:text-gray-300"><?=get('qty')?></p>
-                                    </div>
-
-                                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
-                                        <div class="flex items-center mb-2">
-                                            <i class="fas fa-weight-hanging text-rail-primary mr-2"></i>
-                                            <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Weight</h4>
-                                        </div>
-                                        <p class="text-gray-700 dark:text-gray-300"><?=number_format(get('weight'),2)?> kg</p>
-                                    </div>
-
-                                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
-                                        <div class="flex items-center mb-2">
-                                            <i class="fas fa-shipping-fast text-rail-primary mr-2"></i>
-                                            <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Service Type</h4>
-                                        </div>
-                                        <p class="text-gray-700 dark:text-gray-300 break-words"><?=get('service_type')?></p>
-                                    </div>
-
-                                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
-                                        <div class="flex items-center mb-2">
-                                            <i class="fas fa-info-circle text-rail-primary mr-2"></i>
-                                            <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Status</h4>
-                                        </div>
-                                        <p class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
-                                            <?=get('package_status')?>
-                                        </p>
-                                    </div>
-
-                                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
-                                        <div class="flex items-center mb-2">
-                                            <i class="far fa-calendar-alt text-rail-primary mr-2"></i>
-                                            <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Booking Date</h4>
-                                        </div>
-                                        <p class="text-gray-700 dark:text-gray-300"><?=get('booking_date')?></p>
-                                    </div>
-
-                                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
-                                        <div class="flex items-center mb-2">
-                                            <i class="far fa-calendar-check text-rail-primary mr-2"></i>
-                                            <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Arrival Date</h4>
-                                        </div>
-                                        <p class="text-gray-700 dark:text-gray-300"><?=get('arrival_date')?></p>
-                                    </div>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex items-center">
+                                    <i
+                                        class="fas fa-weight-hanging text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0"></i>
+                                    <span class="text-gray-500 dark:text-gray-400 mr-2">Weight:</span>
+                                    <span
+                                        class="font-medium text-gray-800 dark:text-gray-200"><?= number_format(get('weight'), 2) ?>
+                                        kg</span>
                                 </div>
-
-                                <div class="mt-6 flex flex-wrap gap-3 justify-center md:justify-start">
-                                    <a href="print_receipt.php?tracking_id=<?=get('tracking_id');?>" 
-                                       class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-rail-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all"
-                                       target="_blank">
-                                       <i class="fas fa-print mr-2"></i>
-                                       Print Receipt
-                                    </a>
-
-                                    <a href="payment.php?tracking_id=<?=get('tracking_id');?>" 
-                                       class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all">
-                                       <i class="fas fa-money-bill-wave mr-2"></i>
-                                       Pay Clearance Fee
-                                    </a>
+                                <div class="flex items-center">
+                                    <i class="fas fa-box text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0"></i>
+                                    <span class="text-gray-500 dark:text-gray-400 mr-2">Type:</span>
+                                    <span
+                                        class="font-medium text-gray-800 dark:text-gray-200"><?= get('package_TYPE') ?></span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i
+                                        class="far fa-calendar-alt text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0"></i>
+                                    <span class="text-gray-500 dark:text-gray-400 mr-2">Shipped:</span>
+                                    <span
+                                        class="font-medium text-gray-800 dark:text-gray-200"><?= get('booking_date') ?></span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                
-                <!-- Current Location Map Section -->
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden mb-6">
-                    <div class="flex items-center px-6 py-4 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
-                        <i class="fas fa-map-marker-alt text-rail-primary mr-2"></i>
-                        <h3 class="text-lg font-bold text-gray-800 dark:text-white">Current Location</h3>
-                    </div>
-                    <div class="p-0">
-                        <div class="relative h-[400px]">
-                            <div id="currentLocationMap" class="w-full h-full overflow-hidden"></div>
+
+                        <!-- Status Information -->
+                        <div
+                            class="space-y-3 bg-blue-50/60 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
+                            <div class="flex items-center text-rail-primary mb-2">
+                                <i class="fas fa-map-marker-alt mr-2"></i>
+                                <h3 class="text-base font-semibold">Status Information</h3>
+                            </div>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex items-center">
+                                    <i class="fas fa-truck text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0"></i>
+                                    <span class="text-gray-500 dark:text-gray-400 mr-2">Status:</span>
+                                    <span
+                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
+                                        <?= get('package_status') ?>
+                                    </span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i
+                                        class="fas fa-location-arrow text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0"></i>
+                                    <span class="text-gray-500 dark:text-gray-400 mr-2">Location:</span>
+                                    <span
+                                        class="font-medium text-gray-800 dark:text-gray-200"><?= get('current_destination') ?></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Shipment Progress Tracker -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden mb-6">
+                <div class="px-6 py-4 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
+                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">Shipment Progress</h3>
+                </div>
+                <div class="p-6">
+                    <div class="relative">
+                        <!-- Progress Lines -->
+                        <div class="hidden md:flex absolute top-1/2 left-0 w-full h-1 transform -translate-y-1/2 z-0">
+                            <!-- Line 1: Order Confirmed to Picked -->
+                            <div class="h-full flex-1 bg-rail-primary"></div>
+
+                            <!-- Line 2: Picked to On The Way -->
+                            <div class="h-full flex-1 bg-rail-primary"></div>
+
+                            <!-- Line 3: On The Way to Custom Hold -->
+                            <div class="h-full flex-1 bg-blue-500"></div>
+
+                            <!-- Line 4: Custom Hold to Delivered -->
+                            <div class="h-full flex-1 bg-green-500"></div>
+                        </div>
+
+                        <!-- Mobile Progress Line with Colored Segments -->
+                        <div class="md:hidden absolute top-0 left-8 h-full z-0 flex flex-col">
+                            <!-- Line 1: To Picked -->
+                            <div class="w-1 flex-1 bg-rail-primary"></div>
+
+                            <!-- Line 2: To On The Way -->
+                            <div class="w-1 flex-1 bg-rail-primary"></div>
+
+                            <!-- Line 3: To Custom Hold -->
+                            <div class="w-1 flex-1 bg-blue-500"></div>
+
+                            <!-- Line 4: To Delivered -->
+                            <div class="w-1 flex-1 bg-green-500"></div>
+                        </div>
+
+                        <!-- Progress Steps -->
+                        <div class="flex flex-col md:flex-row justify-between relative z-10">
+                            <!-- Step 1: Order Confirmed -->
+                            <div class="flex md:block md:text-center mb-8 md:mb-0">
+                                <div
+                                    class="flex-shrink-0 flex items-center justify-center w-16 h-16 md:mx-auto rounded-full bg-rail-primary text-white shadow-lg border-4 border-white dark:border-gray-800">
+                                    <i class="fas fa-check text-xl"></i>
+                                </div>
+                                <div class="ml-4 md:ml-0 md:mt-3">
+                                    <h4 class="text-sm font-semibold text-gray-900 dark:text-white">Order Confirmed</h4>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1"><?= get('booking_date') ?>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Step 2: Picked by Courier -->
+                            <div class="flex md:block md:text-center mb-8 md:mb-0">
+                                <div
+                                    class="flex-shrink-0 flex items-center justify-center w-16 h-16 md:mx-auto rounded-full bg-rail-primary text-white shadow-lg border-4 border-white dark:border-gray-800">
+                                    <i class="fas fa-truck text-xl"></i>
+                                </div>
+                                <div class="ml-4 md:ml-0 md:mt-3">
+                                    <h4 class="text-sm font-semibold text-gray-900 dark:text-white">Picked by Courier
+                                    </h4>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1"><?= get('booking_date') ?>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Step 3: On The Way -->
+                            <div class="flex md:block md:text-center mb-8 md:mb-0">
+                                <div
+                                    class="flex-shrink-0 flex items-center justify-center w-16 h-16 md:mx-auto rounded-full bg-rail-primary text-white shadow-lg border-4 border-white dark:border-gray-800">
+                                    <i class="fas fa-shipping-fast text-xl"></i>
+                                </div>
+                                <div class="ml-4 md:ml-0 md:mt-3">
+                                    <h4 class="text-sm font-semibold text-gray-900 dark:text-white">On The Way</h4>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">In Transit</p>
+                                </div>
+                            </div>
+
+                            <!-- Step 4: Custom Hold -->
+                            <div class="flex md:block md:text-center mb-8 md:mb-0">
+                                <div
+                                    class="flex-shrink-0 flex items-center justify-center w-16 h-16 md:mx-auto rounded-full bg-blue-500 text-white shadow-lg border-4 border-white dark:border-gray-800">
+                                    <i class="fas fa-pause text-xl"></i>
+                                </div>
+                                <div class="ml-4 md:ml-0 md:mt-3">
+                                    <h4 class="text-sm font-semibold text-gray-900 dark:text-white">Current Location
+                                    </h4>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                        <?= get('current_destination') ?></p>
+                                </div>
+                            </div>
+
+                            <!-- Step 5: Delivered -->
+                            <div class="flex md:block md:text-center">
+                                <div
+                                    class="flex-shrink-0 flex items-center justify-center w-16 h-16 md:mx-auto rounded-full bg-green-500 text-white shadow-lg border-4 border-white dark:border-gray-800">
+                                    <i class="fas fa-flag-checkered text-xl"></i>
+                                </div>
+                                <div class="ml-4 md:ml-0 md:mt-3">
+                                    <h4 class="text-sm font-semibold text-gray-900 dark:text-white">Delivered</h4>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Est.
+                                        <?= get('arrival_date') ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Grid Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                <!-- Left Column: Shipping Timeline & History -->
+                <div class="lg:order-1 space-y-6">
+                    <!-- Shipping Timeline -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                        <div
+                            class="px-6 py-4 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
+                            <div class="flex items-center">
+                                <i class="fas fa-stream text-rail-primary mr-2"></i>
+                                <h3 class="text-lg font-bold text-gray-800 dark:text-white">Shipping Timeline</h3>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="space-y-6">
+                                <!-- Default timeline -->
+                                <div class="flex items-start">
+                                    <div
+                                        class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-rail-primary text-white shadow-md border-2 border-white dark:border-gray-800">
+                                        <i class="fas fa-map-marker-alt text-xs"></i>
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="flex items-center">
+                                            <span
+                                                class="text-xs font-medium text-gray-500 dark:text-gray-400"><?= get('booking_date') ?></span>
+                                        </div>
+                                        <div class="mt-1">
+                                            <span
+                                                class="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
+                                                FROM
+                                            </span>
+                                        </div>
+                                        <div class="mt-2 text-sm text-gray-700 dark:text-gray-300">
+                                            <p class="font-medium"><?= get('disperse_address') ?></p>
+                                            <p class="mt-1 text-gray-600 dark:text-gray-400">
+                                                <?= get('disperse_country') ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start">
+                                    <div
+                                        class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-blue-500 text-white shadow-md border-2 border-white dark:border-gray-800">
+                                        <i class="fas fa-location-arrow text-xs"></i>
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="mt-1">
+                                            <span
+                                                class="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
+                                                CURRENTLY IN
+                                            </span>
+                                        </div>
+                                        <div class="mt-2 text-sm text-gray-700 dark:text-gray-300">
+                                            <p class="font-medium"><?= get('current_destination') ?></p>
+                                            <p class="mt-1 text-gray-600 dark:text-gray-400"><?= get('package_status') ?>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start">
+                                    <div
+                                        class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-green-500 text-white shadow-md border-2 border-white dark:border-gray-800">
+                                        <i class="fas fa-flag-checkered text-xs"></i>
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="flex items-center">
+                                            <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Est.
+                                                <?= get('arrival_date') ?></span>
+                                        </div>
+                                        <div class="mt-1">
+                                            <span
+                                                class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
+                                                TO
+                                            </span>
+                                        </div>
+                                        <div class="mt-2 text-sm text-gray-700 dark:text-gray-300">
+                                            <p class="font-medium"><?= get('delivering_to') ?></p>
+                                            <p class="mt-1 text-gray-600 dark:text-gray-400">
+                                                <?= get('delivering_country') ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shipping History -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                        <div
+                            class="px-6 py-4 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
+                            <div class="flex items-center">
+                                <i class="fas fa-history text-rail-primary mr-2"></i>
+                                <h3 class="text-lg font-bold text-gray-800 dark:text-white">Shipping History</h3>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="relative">
+                                <!-- Timeline Line -->
+                                <div class="absolute top-0 left-4 h-full w-0.5 bg-gray-200 dark:bg-gray-600 z-0"></div>
+
+                                <!-- Timeline Items -->
+                                <div class="space-y-6">
+                                    <?php if (!empty($shipping_history)): ?>
+                                        <?php foreach ($shipping_history as $index => $event): ?>
+                                            <div class="relative z-10 flex items-start">
+                                                <div
+                                                    class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full 
+                                                        <?= $index === 0 ? 'bg-green-500' : 'bg-rail-primary' ?> 
+                                                        text-white shadow-md border-2 border-white dark:border-gray-800">
+                                                    <?php if ($index === 0): ?>
+                                                        <i class="fas fa-check text-xs"></i>
+                                                    <?php else: ?>
+                                                        <i class="fas fa-info text-xs"></i>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <div class="ml-4">
+                                                    <div class="flex items-center">
+                                                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400">
+                                                            <?= date('M d, Y - h:i A', strtotime($event['event_date'])) ?>
+                                                        </span>
+                                                    </div>
+                                                    <div class="mt-1">
+                                                        <span
+                                                            class="px-2 py-1 text-xs font-semibold rounded-full 
+                                                                <?= $index === 0 ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' : 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200' ?>">
+                                                            <?= htmlspecialchars($event['status']) ?>
+                                                        </span>
+                                                    </div>
+                                                    <div class="mt-2 text-sm text-gray-700 dark:text-gray-300">
+                                                        <p class="font-medium"><?= htmlspecialchars($event['location']) ?></p>
+                                                        <p class="mt-1 text-gray-600 dark:text-gray-400">
+                                                            <?= htmlspecialchars($event['description']) ?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <!-- Default history if no history available -->
+                                        <div class="text-center py-8">
+                                            <i class="fas fa-history text-gray-400 dark:text-gray-500 text-4xl mb-4"></i>
+                                            <h4 class="text-lg font-medium text-gray-600 dark:text-gray-400">No Shipping
+                                                History Available</h4>
+                                            <p class="text-sm text-gray-500 dark:text-gray-500 mt-2">Tracking updates will
+                                                appear here as your shipment progresses.</p>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center/Right Column: Package Route Map -->
+                <div class="lg:order-2 lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                    <div
+                        class="flex items-center px-6 py-4 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
+                        <i class="fas fa-route text-rail-primary mr-2"></i>
+                        <h3 class="text-lg font-bold text-gray-800 dark:text-white">Package Journey Map</h3>
+                        <span class="ml-auto text-xs text-gray-500 dark:text-gray-400">Live Global Tracking</span>
+                    </div>
+                    <div class="p-0">
+                        <div class="relative h-[600px]">
+                            <!-- Leaflet.js map for route visualization -->
+                            <div id="routeMap" class="w-full h-full overflow-hidden"></div>
+
+                            <!-- Map Controls Overlay -->
+                            <div class="absolute top-4 right-4 flex flex-col space-y-2">
+                                <button id="fitBoundsBtn"
+                                    class="bg-white dark:bg-gray-800 p-2 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                                    <i class="fas fa-expand text-gray-700 dark:text-gray-300"></i>
+                                </button>
+                                <button id="toggleSatelliteBtn"
+                                    class="bg-white dark:bg-gray-800 p-2 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                                    <i class="fas fa-satellite text-gray-700 dark:text-gray-300"></i>
+                                </button>
+                            </div>
+
+                            <!-- Route Info Overlay -->
+                            <div
+                                class="absolute bottom-4 left-4 bg-white dark:bg-gray-800 bg-opacity-95 dark:bg-opacity-95 backdrop-filter backdrop-blur-sm p-4 rounded-lg shadow-lg max-w-sm border border-gray-200 dark:border-gray-600">
+                                <h4 class="text-sm font-semibold text-gray-800 dark:text-white mb-3">Shipment Route
+                                    Details</h4>
+
+                                <div class="space-y-3">
+                                    <div class="flex items-start">
+                                        <div
+                                            class="flex-shrink-0 h-6 w-6 rounded-full bg-blue-500 border-2 border-white dark:border-gray-800 shadow-sm flex items-center justify-center mt-0.5">
+                                            <span class="text-white text-xs font-bold">A</span>
+                                        </div>
+                                        <div class="ml-2">
+                                            <p class="text-xs font-medium text-gray-900 dark:text-white">Origin Point
+                                            </p>
+                                            <p class="text-xs text-gray-600 dark:text-gray-300">
+                                                <?= get('disperse_country') ?></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start">
+                                        <div
+                                            class="flex-shrink-0 h-6 w-6 rounded-full bg-rail-primary border-2 border-white dark:border-gray-800 shadow-sm flex items-center justify-center mt-0.5 pulse-marker">
+                                            <span class="text-white text-xs font-bold">B</span>
+                                        </div>
+                                        <div class="ml-2">
+                                            <p class="text-xs font-medium text-gray-900 dark:text-white">Current
+                                                Location</p>
+                                            <p class="text-xs text-gray-600 dark:text-gray-300">
+                                                <?= get('current_destination') ?></p>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                Status: <?= get('package_status') ?>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start">
+                                        <div
+                                            class="flex-shrink-0 h-6 w-6 rounded-full bg-green-500 border-2 border-white dark:border-gray-800 shadow-sm flex items-center justify-center mt-0.5">
+                                            <span class="text-white text-xs font-bold">C</span>
+                                        </div>
+                                        <div class="ml-2">
+                                            <p class="text-xs font-medium text-gray-900 dark:text-white">Destination</p>
+                                            <p class="text-xs text-gray-600 dark:text-gray-300">
+                                                <?= get('delivering_country') ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-route text-rail-primary mr-1 text-xs"></i>
+                                            <span class="text-xs font-medium text-gray-700 dark:text-gray-300">Estimated
+                                                Distance:</span>
+                                        </div>
+                                        <span id="route_distance"
+                                            class="text-xs font-semibold text-rail-primary">Calculating...</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <i class="far fa-clock text-rail-primary mr-1 text-xs"></i>
+                                            <span class="text-xs font-medium text-gray-700 dark:text-gray-300">Est.
+                                                Time:</span>
+                                        </div>
+                                        <span id="route_time"
+                                            class="text-xs font-semibold text-rail-primary"><?= get('arrival_date') ?></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Package Information Card -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden mb-6">
+                <div class="px-6 py-4 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
+                    <div class="flex items-center">
+                        <i class="fas fa-box-open text-rail-primary mr-2"></i>
+                        <h3 class="text-lg font-bold text-gray-800 dark:text-white">Package Details</h3>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex flex-col md:flex-row">
+                        <?php if (get('photo') && file_exists('uploads/' . get('photo'))): ?>
+                            <div class="md:w-1/4 mb-6 md:mb-0 md:pr-6">
+                                <div class="bg-gray-100 dark:bg-gray-700 p-2 rounded-lg">
+                                    <img src="uploads/<?= get('photo') ?>" class="w-full h-auto rounded-lg object-cover"
+                                        alt="Parcel photo">
+                                </div>
+                            </div>
+                        <?php endif; ?>
+
+                        <div
+                            class="<?= (get('photo') && file_exists('uploads/' . get('photo'))) ? 'md:w-3/4' : 'w-full' ?>">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div
+                                    class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-user text-rail-primary mr-2"></i>
+                                        <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Sender's Name
+                                        </h4>
+                                    </div>
+                                    <p class="text-gray-700 dark:text-gray-300 break-words"><?= get('sender_name') ?></p>
+                                </div>
+
+                                <div
+                                    class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-user text-rail-primary mr-2"></i>
+                                        <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Receiver's Name
+                                        </h4>
+                                    </div>
+                                    <p class="text-gray-700 dark:text-gray-300 break-words"><?= get('reciever_name') ?>
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-box text-rail-primary mr-2"></i>
+                                        <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Package</h4>
+                                    </div>
+                                    <p class="text-gray-700 dark:text-gray-300 break-words"><?= get('package') ?></p>
+                                </div>
+
+                                <div
+                                    class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-align-left text-rail-primary mr-2"></i>
+                                        <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Description</h4>
+                                    </div>
+                                    <p class="text-gray-700 dark:text-gray-300 break-words"><?= get('description') ?></p>
+                                </div>
+
+                                <div
+                                    class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-barcode text-rail-primary mr-2"></i>
+                                        <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Product ID</h4>
+                                    </div>
+                                    <p class="text-gray-700 dark:text-gray-300 break-words"><?= get('tracking_id') ?></p>
+                                </div>
+
+                                <div
+                                    class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-tag text-rail-primary mr-2"></i>
+                                        <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Package Type
+                                        </h4>
+                                    </div>
+                                    <p class="text-gray-700 dark:text-gray-300 break-words"><?= get('package_TYPE') ?></p>
+                                </div>
+
+                                <div
+                                    class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-cubes text-rail-primary mr-2"></i>
+                                        <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Quantity</h4>
+                                    </div>
+                                    <p class="text-gray-700 dark:text-gray-300"><?= get('qty') ?></p>
+                                </div>
+
+                                <div
+                                    class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-weight-hanging text-rail-primary mr-2"></i>
+                                        <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Weight</h4>
+                                    </div>
+                                    <p class="text-gray-700 dark:text-gray-300"><?= number_format(get('weight'), 2) ?> kg
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-shipping-fast text-rail-primary mr-2"></i>
+                                        <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Service Type
+                                        </h4>
+                                    </div>
+                                    <p class="text-gray-700 dark:text-gray-300 break-words"><?= get('service_type') ?></p>
+                                </div>
+
+                                <div
+                                    class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-info-circle text-rail-primary mr-2"></i>
+                                        <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Status</h4>
+                                    </div>
+                                    <p
+                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
+                                        <?= get('package_status') ?>
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
+                                    <div class="flex items-center mb-2">
+                                        <i class="far fa-calendar-alt text-rail-primary mr-2"></i>
+                                        <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Booking Date
+                                        </h4>
+                                    </div>
+                                    <p class="text-gray-700 dark:text-gray-300"><?= get('booking_date') ?></p>
+                                </div>
+
+                                <div
+                                    class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
+                                    <div class="flex items-center mb-2">
+                                        <i class="far fa-calendar-check text-rail-primary mr-2"></i>
+                                        <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Arrival Date
+                                        </h4>
+                                    </div>
+                                    <p class="text-gray-700 dark:text-gray-300"><?= get('arrival_date') ?></p>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 flex flex-wrap gap-3 justify-center md:justify-start">
+                                <a href="print_receipt.php?tracking_id=<?= get('tracking_id'); ?>"
+                                    class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-rail-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all"
+                                    target="_blank">
+                                    <i class="fas fa-print mr-2"></i>
+                                    Print Receipt
+                                </a>
+
+                                <a href="payment.php?tracking_id=<?= get('tracking_id'); ?>"
+                                    class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all">
+                                    <i class="fas fa-money-bill-wave mr-2"></i>
+                                    Pay Clearance Fee
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current Location Map Section -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden mb-6">
+                <div
+                    class="flex items-center px-6 py-4 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
+                    <i class="fas fa-map-marker-alt text-rail-primary mr-2"></i>
+                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">Current Location</h3>
+                </div>
+                <div class="p-0">
+                    <div class="relative h-[400px]">
+                        <div id="currentLocationMap" class="w-full h-full overflow-hidden"></div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
     </div>
 
     <!-- Modern Footer -->
@@ -945,20 +1080,26 @@ if ($history_result->num_rows > 0) {
                         <h3 class="text-xl font-semibold mb-2 text-white">Swift Express Logistics</h3>
                     </div>
                     <p class="text-gray-300 mb-6 leading-relaxed">
-                        Premium worldwide rail logistics and transport services with headquarters and branches across the globe. 
-                        We deliver excellence in rail shipping, logistics services, and package tracking with our global network of trusted rail partners.
+                        Premium worldwide rail logistics and transport services with headquarters and branches across
+                        the globe.
+                        We deliver excellence in rail shipping, logistics services, and package tracking with our global
+                        network of trusted rail partners.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-rail-primary rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors">
+                        <a href="#"
+                            class="w-10 h-10 bg-rail-primary rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors">
                             <i class="fab fa-facebook-f text-white"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-rail-primary rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors">
+                        <a href="#"
+                            class="w-10 h-10 bg-rail-primary rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors">
                             <i class="fab fa-twitter text-white"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-rail-primary rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors">
+                        <a href="#"
+                            class="w-10 h-10 bg-rail-primary rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors">
                             <i class="fab fa-linkedin-in text-white"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-rail-primary rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors">
+                        <a href="#"
+                            class="w-10 h-10 bg-rail-primary rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors">
                             <i class="fab fa-instagram text-white"></i>
                         </a>
                     </div>
@@ -975,25 +1116,29 @@ if ($history_result->num_rows > 0) {
                             </a>
                         </li>
                         <li>
-                            <a href="about" class="text-gray-300 hover:text-blue-400 transition-colors flex items-center">
+                            <a href="about"
+                                class="text-gray-300 hover:text-blue-400 transition-colors flex items-center">
                                 <i class="fas fa-chevron-right text-xs mr-2 text-blue-500"></i>
                                 About Us
                             </a>
                         </li>
                         <li>
-                            <a href="services" class="text-gray-300 hover:text-blue-400 transition-colors flex items-center">
+                            <a href="services"
+                                class="text-gray-300 hover:text-blue-400 transition-colors flex items-center">
                                 <i class="fas fa-chevron-right text-xs mr-2 text-blue-500"></i>
                                 Our Services
                             </a>
                         </li>
                         <li>
-                            <a href="order" class="text-gray-300 hover:text-blue-400 transition-colors flex items-center">
+                            <a href="order"
+                                class="text-gray-300 hover:text-blue-400 transition-colors flex items-center">
                                 <i class="fas fa-chevron-right text-xs mr-2 text-blue-500"></i>
                                 Track Shipment
                             </a>
                         </li>
                         <li>
-                            <a href="contact" class="text-gray-300 hover:text-blue-400 transition-colors flex items-center">
+                            <a href="contact"
+                                class="text-gray-300 hover:text-blue-400 transition-colors flex items-center">
                                 <i class="fas fa-chevron-right text-xs mr-2 text-blue-500"></i>
                                 Contact Us
                             </a>
@@ -1006,7 +1151,8 @@ if ($history_result->num_rows > 0) {
                     <h4 class="text-lg font-semibold mb-6 text-white">Contact Info</h4>
                     <div class="space-y-4">
                         <div class="flex items-start space-x-3">
-                            <div class="w-8 h-8 bg-rail-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                            <div
+                                class="w-8 h-8 bg-rail-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                                 <i class="fas fa-map-marker-alt text-white text-sm"></i>
                             </div>
                             <div>
@@ -1015,21 +1161,25 @@ if ($history_result->num_rows > 0) {
                             </div>
                         </div>
                         <div class="flex items-start space-x-3">
-                            <div class="w-8 h-8 bg-rail-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                            <div
+                                class="w-8 h-8 bg-rail-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                                 <i class="fas fa-headset text-white text-sm"></i>
                             </div>
                             <div>
                                 <p class="text-gray-400 text-sm">Support</p>
-                                <a href="#" class="text-white hover:text-blue-400 transition-colors">Live Chat Support</a>
+                                <a href="#" class="text-white hover:text-blue-400 transition-colors">Live Chat
+                                    Support</a>
                             </div>
                         </div>
                         <div class="flex items-start space-x-3">
-                            <div class="w-8 h-8 bg-rail-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                            <div
+                                class="w-8 h-8 bg-rail-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                                 <i class="fas fa-envelope text-white text-sm"></i>
                             </div>
                             <div>
                                 <p class="text-gray-400 text-sm">Email Us</p>
-                                <a href="mailto:support@swiftexpresses.online" class="text-white hover:text-blue-400 transition-colors break-words">
+                                <a href="mailto:support@swiftexpresses.online"
+                                    class="text-white hover:text-blue-400 transition-colors break-words">
                                     support@swiftexpresses.online
                                 </a>
                             </div>
@@ -1040,12 +1190,10 @@ if ($history_result->num_rows > 0) {
                     <div class="mt-8">
                         <h5 class="text-sm font-semibold mb-3 text-white">Quick Track</h5>
                         <form method="POST" action="" class="space-y-2">
-                            <input type="text" 
-                                   name="trackingnumber" 
-                                   placeholder="Enter tracking number..." 
-                                   class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm">
-                            <button type="submit" 
-                                    class="w-full bg-rail-primary text-white py-2 px-3 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
+                            <input type="text" name="trackingnumber" placeholder="Enter tracking number..."
+                                class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm">
+                            <button type="submit"
+                                class="w-full bg-rail-primary text-white py-2 px-3 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
                                 <i class="fas fa-search mr-1"></i>Track
                             </button>
                         </form>
@@ -1060,7 +1208,8 @@ if ($history_result->num_rows > 0) {
                 <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
                     <div class="text-center md:text-left">
                         <p class="text-gray-400 text-sm">
-                            Copyright &copy; <span id="currentYear"></span> Swift Express Logistics Services Limited. All rights reserved.
+                            Copyright &copy; <span id="currentYear"></span> Swift Express Logistics Services Limited.
+                            All rights reserved.
                         </p>
                     </div>
                     <div class="flex items-center space-x-6 text-sm">
@@ -1075,32 +1224,32 @@ if ($history_result->num_rows > 0) {
 
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-            crossorigin=""></script>
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <!-- Leaflet Awesome Markers -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             // Set current year for copyright
             document.getElementById('currentYear').textContent = new Date().getFullYear();
-            
+
             // Sample coordinates for demonstration (in real app, these would come from your database)
             const locationData = {
                 origin: {
-                    name: "<?=get('disperse_country')?>",
-                    address: "<?=get('disperse_address')?>",
+                    name: "<?= get('disperse_country') ?>",
+                    address: "<?= get('disperse_address') ?>",
                     coords: [40.7128, -74.0060] // Default to New York
                 },
                 current: {
-                    name: "<?=get('current_destination')?>",
-                    status: "<?=get('package_status')?>",
+                    name: "<?= get('current_destination') ?>",
+                    status: "<?= get('package_status') ?>",
                     coords: [34.0522, -118.2437] // Default to Los Angeles
                 },
                 destination: {
-                    name: "<?=get('delivering_country')?>",
-                    address: "<?=get('delivering_to')?>",
+                    name: "<?= get('delivering_country') ?>",
+                    address: "<?= get('delivering_to') ?>",
                     coords: [51.5074, -0.1278] // Default to London
                 }
             };
@@ -1147,11 +1296,11 @@ if ($history_result->num_rows > 0) {
                 if (!locationName || locationName.trim() === '') {
                     return null;
                 }
-                
+
                 try {
                     const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(locationName)}&limit=1`);
                     const data = await response.json();
-                    
+
                     if (data && data.length > 0) {
                         return {
                             lat: parseFloat(data[0].lat),
@@ -1196,9 +1345,9 @@ if ($history_result->num_rows > 0) {
             async function initializeMap() {
                 // Geocode all locations
                 const [originCoords, currentCoords, destinationCoords] = await Promise.all([
-                    geocodeLocation("<?=get('disperse_country')?>"),
-                    geocodeLocation("<?=get('current_destination')?>"),
-                    geocodeLocation("<?=get('delivering_country')?>")
+                    geocodeLocation("<?= get('disperse_country') ?>"),
+                    geocodeLocation("<?= get('current_destination') ?>"),
+                    geocodeLocation("<?= get('delivering_country') ?>")
                 ]);
 
                 // Use geocoded coordinates or fallback to defaults
@@ -1213,13 +1362,13 @@ if ($history_result->num_rows > 0) {
                 const originMarker = L.marker(origin, {
                     icon: createCustomIcon('#3b82f6', 'A')
                 }).addTo(markers);
-                
+
                 originMarker.bindPopup(`
                     <div class="text-sm">
                         <strong>🚂 Origin</strong><br>
                         <b>Location:</b> ${locationData.origin.name}<br>
                         <b>Address:</b> ${locationData.origin.address}<br>
-                        <b>Date:</b> <?=get('booking_date')?>
+                        <b>Date:</b> <?= get('booking_date') ?>
                     </div>
                 `);
 
@@ -1227,13 +1376,13 @@ if ($history_result->num_rows > 0) {
                 const currentMarker = L.marker(current, {
                     icon: createCustomIcon('#0ea5e9', 'B', true)
                 }).addTo(markers);
-                
+
                 currentMarker.bindPopup(`
                     <div class="text-sm">
                         <strong>📍 Current Location</strong><br>
                         <b>Location:</b> ${locationData.current.name}<br>
                         <b>Status:</b> ${locationData.current.status}<br>
-                        <b>Last Update:</b> <?=get('booking_date')?>
+                        <b>Last Update:</b> <?= get('booking_date') ?>
                     </div>
                 `).openPopup();
 
@@ -1241,13 +1390,13 @@ if ($history_result->num_rows > 0) {
                 const destinationMarker = L.marker(destination, {
                     icon: createCustomIcon('#10b981', 'C')
                 }).addTo(markers);
-                
+
                 destinationMarker.bindPopup(`
                     <div class="text-sm">
                         <strong>🏁 Destination</strong><br>
                         <b>Location:</b> ${locationData.destination.name}<br>
                         <b>Address:</b> ${locationData.destination.address}<br>
-                        <b>Est. Arrival:</b> <?=get('arrival_date')?>
+                        <b>Est. Arrival:</b> <?= get('arrival_date') ?>
                     </div>
                 `);
 
@@ -1281,17 +1430,17 @@ if ($history_result->num_rows > 0) {
                 document.getElementById("route_time").textContent = `Progress: ${Math.round(progress)}%`;
 
                 // Add progress visualization
-                L.control.attribution({ 
+                L.control.attribution({
                     position: 'bottomright',
                     prefix: `Progress: ${Math.round(progress)}% • Distance: ${Math.round(totalDistance)} km`
                 }).addTo(routeMap);
 
                 // Map control buttons functionality
-                document.getElementById('fitBoundsBtn').addEventListener('click', function() {
+                document.getElementById('fitBoundsBtn').addEventListener('click', function () {
                     routeMap.fitBounds(group.getBounds().pad(0.1));
                 });
 
-                document.getElementById('toggleSatelliteBtn').addEventListener('click', function() {
+                document.getElementById('toggleSatelliteBtn').addEventListener('click', function () {
                     if (routeMap.hasLayer(osmLayer)) {
                         routeMap.removeLayer(osmLayer);
                         satelliteLayer.addTo(routeMap);
@@ -1310,11 +1459,11 @@ if ($history_result->num_rows > 0) {
                 const R = 6371; // Earth's radius in km
                 const dLat = (coord2[0] - coord1[0]) * Math.PI / 180;
                 const dLon = (coord2[1] - coord1[1]) * Math.PI / 180;
-                const a = 
-                    Math.sin(dLat/2) * Math.sin(dLat/2) +
-                    Math.cos(coord1[0] * Math.PI / 180) * Math.cos(coord2[0] * Math.PI / 180) * 
-                    Math.sin(dLon/2) * Math.sin(dLon/2);
-                const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+                const a =
+                    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                    Math.cos(coord1[0] * Math.PI / 180) * Math.cos(coord2[0] * Math.PI / 180) *
+                    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+                const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
                 return R * c;
             }
 
@@ -1329,21 +1478,21 @@ if ($history_result->num_rows > 0) {
                 zoomControl: false,
                 attributionControl: false
             }).setView([0, 0], 3);
-            
+
             // Add tile layer
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                 maxZoom: 19,
             }).addTo(currentLocationMap);
-            
+
             // Add zoom control
             L.control.zoom({
                 position: 'topright'
             }).addTo(currentLocationMap);
-            
+
             // Geocode the current destination
-            var countryName = "<?=get('current_destination')?>";
-            
+            var countryName = "<?= get('current_destination') ?>";
+
             if (countryName) {
                 fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(countryName))
                     .then(response => response.json())
@@ -1351,7 +1500,7 @@ if ($history_result->num_rows > 0) {
                         if (data.length > 0) {
                             var latitude = parseFloat(data[0].lat);
                             var longitude = parseFloat(data[0].lon);
-                            
+
                             // Custom icon
                             var customIcon = L.divIcon({
                                 className: 'custom-icon',
@@ -1359,14 +1508,14 @@ if ($history_result->num_rows > 0) {
                                 iconSize: [20, 20],
                                 iconAnchor: [10, 10]
                             });
-                            
+
                             // Add marker with pulse animation
                             var marker = L.marker([latitude, longitude], {
                                 icon: customIcon
                             }).addTo(currentLocationMap)
                                 .bindPopup("<b>Current Location</b><br>" + countryName)
                                 .openPopup();
-                            
+
                             // Add pulsing circle effect
                             L.circle([latitude, longitude], {
                                 color: '#0ea5e9',
@@ -1374,7 +1523,7 @@ if ($history_result->num_rows > 0) {
                                 fillOpacity: 0.2,
                                 radius: 50000
                             }).addTo(currentLocationMap);
-                            
+
                             // Set view to marker location
                             currentLocationMap.setView([latitude, longitude], 6);
                         } else {
@@ -1393,6 +1542,7 @@ if ($history_result->num_rows > 0) {
             }, 30000);
         });
     </script>
-    
+
 </body>
+
 </html>
