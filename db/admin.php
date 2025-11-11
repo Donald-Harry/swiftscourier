@@ -452,7 +452,7 @@ function get_wallet_addresses()
                     </div>
 
                     <!-- Wallet Address Management Section -->
-                    <div class="wallet-section mb-lg-5" id="wallet_section">
+                    <div class="wallet-section" id="wallet_section">
                         <div class="wallet-header" onclick="toggleWalletSection()">
                             <h5 class="mb-0">
                                 <i class="fa fa-chevron-down me-2"></i>
@@ -511,7 +511,7 @@ function get_wallet_addresses()
                                 <h5 id="wallet_form_title">Add New Wallet Address</h5>
                                 <form action="php/manage_wallet.php" method="POST">
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 mb-lg-5">
                                             <div class="form-group">
                                                 <label class="form-label">Crypto Type</label>
                                                 <select name="crypto_type" class="form-control" required>
