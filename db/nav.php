@@ -61,10 +61,10 @@ if ($c_page == $nav_config_pt . 'tracking.php') {
 					<div class="collapse navbar-collapse main-menu-item" id="navbarSupportedContent">
 						<ul class="navbar-nav">
 							<li class="nav-item">
-								<a style="color-navy" class="nav-link <?= $index ?>" href="../index.html">Home</a>
+								<a style="color:navy" class="nav-link <?= $index ?>" href="../index.html">Home</a>
 							</li>
 							<li class="nav-item">
-								<a style="color-navy" class="nav-link <?= $tracking ?>"
+								<a style="color:navy" class="nav-link <?= $tracking ?>"
 									href="../tracking.html">Tracking</a>
 							</li>
 
