@@ -511,8 +511,8 @@ function get_wallet_addresses()
                                 <h5 id="wallet_form_title">Add New Wallet Address</h5>
                                 <form action="php/manage_wallet.php" method="POST">
                                     <div class="row">
-                                        <div class="col-md-3 mb-lg-5">
-                                            <div class="form-group">
+                                        <div class="col-md-3">
+                                            <div class="form-group mb-lg-5">
                                                 <label class="form-label">Crypto Type</label>
                                                 <select name="crypto_type" class="form-control" required>
                                                     <option value="">Select Cryptocurrency</option>
@@ -923,6 +923,7 @@ function get_wallet_addresses()
                                                 <li data-value="Sao Tome & Principe" class="option">Sao Tome & Principe
                                                 </li>
                                                 <li data-value="Saudi Arabia" class="option">Saudi Arabia</li>
+                                                <li data-value="Scotland" class="option">Scotland</li>
                                                 <li data-value="Senegal" class="option">Senegal</li>
                                                 <li data-value="Seychelles" class="option">Seychelles</li>
                                                 <li data-value="Sierra Leone" class="option">Sierra Leone</li>
@@ -1286,6 +1287,7 @@ function get_wallet_addresses()
                                                 <li data-value="Sao Tome & Principe" class="option">Sao Tome & Principe
                                                 </li>
                                                 <li data-value="Saudi Arabia" class="option">Saudi Arabia</li>
+                                                 <li data-value="Scotland" class="option">Scotland</li>
                                                 <li data-value="Senegal" class="option">Senegal</li>
                                                 <li data-value="Seychelles" class="option">Seychelles</li>
                                                 <li data-value="Sierra Leone" class="option">Sierra Leone</li>
