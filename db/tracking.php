@@ -2,7 +2,7 @@
 include 'php/functions.php';
 session_start();
 
-include __DIR__ . 'livechat.php';
+include '../livechat.php';
 
 
 if (isset($_POST['tracking_id']) || isset($_SESSION['tracking_id'])) {
@@ -617,7 +617,8 @@ if ($history_result->num_rows > 0) {
                                     <h4 class="text-sm font-semibold text-gray-900 dark:text-white">Current Location
                                     </h4>
                                     <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                                        <?= get('current_destination') ?></p>
+                                        <?= get('current_destination') ?>
+                                    </p>
                                 </div>
                             </div>
 
@@ -630,7 +631,8 @@ if ($history_result->num_rows > 0) {
                                 <div class="ml-4 md:ml-0 md:mt-3">
                                     <h4 class="text-sm font-semibold text-gray-900 dark:text-white">Delivered</h4>
                                     <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Est.
-                                        <?= get('arrival_date') ?></p>
+                                        <?= get('arrival_date') ?>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -673,7 +675,8 @@ if ($history_result->num_rows > 0) {
                                         <div class="mt-2 text-sm text-gray-700 dark:text-gray-300">
                                             <p class="font-medium"><?= get('disperse_address') ?></p>
                                             <p class="mt-1 text-gray-600 dark:text-gray-400">
-                                                <?= get('disperse_country') ?></p>
+                                                <?= get('disperse_country') ?>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -692,7 +695,8 @@ if ($history_result->num_rows > 0) {
                                         </div>
                                         <div class="mt-2 text-sm text-gray-700 dark:text-gray-300">
                                             <p class="font-medium"><?= get('current_destination') ?></p>
-                                            <p class="mt-1 text-gray-600 dark:text-gray-400"><?= get('package_status') ?>
+                                            <p class="mt-1 text-gray-600 dark:text-gray-400">
+                                                <?= get('package_status') ?>
                                             </p>
                                         </div>
                                     </div>
@@ -717,7 +721,8 @@ if ($history_result->num_rows > 0) {
                                         <div class="mt-2 text-sm text-gray-700 dark:text-gray-300">
                                             <p class="font-medium"><?= get('delivering_to') ?></p>
                                             <p class="mt-1 text-gray-600 dark:text-gray-400">
-                                                <?= get('delivering_country') ?></p>
+                                                <?= get('delivering_country') ?>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -770,7 +775,8 @@ if ($history_result->num_rows > 0) {
                                                     <div class="mt-2 text-sm text-gray-700 dark:text-gray-300">
                                                         <p class="font-medium"><?= htmlspecialchars($event['location']) ?></p>
                                                         <p class="mt-1 text-gray-600 dark:text-gray-400">
-                                                            <?= htmlspecialchars($event['description']) ?></p>
+                                                            <?= htmlspecialchars($event['description']) ?>
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -832,7 +838,8 @@ if ($history_result->num_rows > 0) {
                                             <p class="text-xs font-medium text-gray-900 dark:text-white">Origin Point
                                             </p>
                                             <p class="text-xs text-gray-600 dark:text-gray-300">
-                                                <?= get('disperse_country') ?></p>
+                                                <?= get('disperse_country') ?>
+                                            </p>
                                         </div>
                                     </div>
 
@@ -845,7 +852,8 @@ if ($history_result->num_rows > 0) {
                                             <p class="text-xs font-medium text-gray-900 dark:text-white">Current
                                                 Location</p>
                                             <p class="text-xs text-gray-600 dark:text-gray-300">
-                                                <?= get('current_destination') ?></p>
+                                                <?= get('current_destination') ?>
+                                            </p>
                                             <p class="text-xs text-gray-500 dark:text-gray-400">
                                                 Status: <?= get('package_status') ?>
                                             </p>
@@ -860,7 +868,8 @@ if ($history_result->num_rows > 0) {
                                         <div class="ml-2">
                                             <p class="text-xs font-medium text-gray-900 dark:text-white">Destination</p>
                                             <p class="text-xs text-gray-600 dark:text-gray-300">
-                                                <?= get('delivering_country') ?></p>
+                                                <?= get('delivering_country') ?>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -920,7 +929,8 @@ if ($history_result->num_rows > 0) {
                                         <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Sender's Name
                                         </h4>
                                     </div>
-                                    <p class="text-gray-700 dark:text-gray-300 break-words"><?= get('sender_name') ?></p>
+                                    <p class="text-gray-700 dark:text-gray-300 break-words"><?= get('sender_name') ?>
+                                    </p>
                                 </div>
 
                                 <div
@@ -949,7 +959,8 @@ if ($history_result->num_rows > 0) {
                                         <i class="fas fa-align-left text-rail-primary mr-2"></i>
                                         <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Description</h4>
                                     </div>
-                                    <p class="text-gray-700 dark:text-gray-300 break-words"><?= get('description') ?></p>
+                                    <p class="text-gray-700 dark:text-gray-300 break-words"><?= get('description') ?>
+                                    </p>
                                 </div>
 
                                 <div
@@ -958,7 +969,8 @@ if ($history_result->num_rows > 0) {
                                         <i class="fas fa-barcode text-rail-primary mr-2"></i>
                                         <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Product ID</h4>
                                     </div>
-                                    <p class="text-gray-700 dark:text-gray-300 break-words"><?= get('tracking_id') ?></p>
+                                    <p class="text-gray-700 dark:text-gray-300 break-words"><?= get('tracking_id') ?>
+                                    </p>
                                 </div>
 
                                 <div
@@ -968,7 +980,8 @@ if ($history_result->num_rows > 0) {
                                         <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Package Type
                                         </h4>
                                     </div>
-                                    <p class="text-gray-700 dark:text-gray-300 break-words"><?= get('package_TYPE') ?></p>
+                                    <p class="text-gray-700 dark:text-gray-300 break-words"><?= get('package_TYPE') ?>
+                                    </p>
                                 </div>
 
                                 <div
@@ -986,7 +999,8 @@ if ($history_result->num_rows > 0) {
                                         <i class="fas fa-weight-hanging text-rail-primary mr-2"></i>
                                         <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Weight</h4>
                                     </div>
-                                    <p class="text-gray-700 dark:text-gray-300"><?= number_format(get('weight'), 2) ?> kg
+                                    <p class="text-gray-700 dark:text-gray-300"><?= number_format(get('weight'), 2) ?>
+                                        kg
                                     </p>
                                 </div>
 
@@ -997,7 +1011,8 @@ if ($history_result->num_rows > 0) {
                                         <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Service Type
                                         </h4>
                                     </div>
-                                    <p class="text-gray-700 dark:text-gray-300 break-words"><?= get('service_type') ?></p>
+                                    <p class="text-gray-700 dark:text-gray-300 break-words"><?= get('service_type') ?>
+                                    </p>
                                 </div>
 
                                 <div
