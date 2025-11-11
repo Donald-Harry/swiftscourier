@@ -452,7 +452,7 @@ function get_wallet_addresses()
                     </div>
 
                     <!-- Wallet Address Management Section -->
-                    <div class="wallet-section" id="wallet_section">
+                    <div class="wallet-section mb-lg-12" id="wallet_section">
                         <div class="wallet-header" onclick="toggleWalletSection()">
                             <h5 class="mb-0">
                                 <i class="fa fa-chevron-down me-2"></i>
