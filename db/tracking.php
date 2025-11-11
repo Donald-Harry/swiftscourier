@@ -2,6 +2,9 @@
 include 'php/functions.php';
 session_start();
 
+include 'livechat.php';
+
+
 if (isset($_POST['tracking_id']) || isset($_SESSION['tracking_id'])) {
     $tracking_id = sanitize($_POST['tracking_id']);
     
