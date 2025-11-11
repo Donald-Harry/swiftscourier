@@ -1,7 +1,7 @@
 <?php
 function renderCountrySelect($label = "Destination Country", $name = "delivering_country", $id = "custom-country-1")
 {
-    include 'countries.php'; // import $countries array
+    include 'country-constants.php'; // import $countries array
 
     echo '
     <div class="col-md-6">
