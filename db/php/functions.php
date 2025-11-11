@@ -1,21 +1,18 @@
 <?php 
 session_start();
-
 $host = "localhost";
 $user = "u787607796_swiftexpress";
 $password = 'Swiftexpress1234@';
 $db_name = "u787607796_swiftexpress";
-$db = mysqli_connect($host, $user, $password, $db_name);
-if (mysqli_connect_errno()) {
-  die("Failed to connect with MySQL: " . mysqli_connect_error());
-}
-$site_name = "swiftsexpress";
-$site_url = 'www.swiftsexpress.online';
-
-
+    $db = mysqli_connect($host, $user, $password, $db_name);  
+    if(mysqli_connect_errno()) {  
+        die("Failed to connect with MySQL: ". mysqli_connect_error());  
+    }
+$site_name = "swiftexpresses";
+$site_url = 'www.swiftexpresses.online';
 $nav_config_pt = '/logistic/';
 
-$my_email = "support@swiftsexpress.online";
+$my_email = "support@swiftexpresses.online";
 
  function sanitize(&$input) { 
     if (is_array($input)) {

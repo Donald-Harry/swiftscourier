@@ -3,46 +3,57 @@ include 'php/functions.php';
 session_start();
 
 if (isset($_POST['tracking_id']) || isset($_SESSION['tracking_id'])) {
-  $tracking_id = sanitize($_POST['tracking_id']);
-  
-  if (isset($_SESSION['tracking_id']) && empty($_POST['tracking_id'])) {
-    $tracking_id = $_SESSION['tracking_id'];
-  }
-
-  $sql = "SELECT * FROM info WHERE tracking_id = '$tracking_id'";
-  $result = $db->query($sql);
-
-  if ($result->num_rows !== 0) {
-    $row = $result->fetch_assoc();
-    $_SESSION['tracking_id'] = $row['tracking_id'];
-
-    if ($row['type'] == 1) {
-      echo "<script>window.location.href='admin.php'</script>";
-      exit();
+    $tracking_id = sanitize($_POST['tracking_id']);
+    
+    if (isset($_SESSION['tracking_id']) && empty($_POST['tracking_id'])) {
+        $tracking_id = $_SESSION['tracking_id'];
     }
 
-  } else {
+    $sql = "SELECT * FROM info WHERE tracking_id = '$tracking_id'";
+    $result = $db->query($sql);
 
-    $_SESSION['tracking_error'] = "Tracking ID Not Found";
-    echo "<script>window.location.href='../track.php?error=1';</script>";
-    exit();
-  }
+    if ($result->num_rows !== 0) {
+        $row = $result->fetch_assoc();
+        $_SESSION['tracking_id'] = $row['tracking_id'];
+
+        if ($row['type'] == 1) {
+            echo "<script>window.location.href='admin.php';</script>";
+            exit();
+        }
+
+    } else {
+      
+        echo "<script>
+                alert('Tracking ID not found. Please check and try again.');
+                window.location.href = '../index.php';
+              </script>";
+        exit();
+    }
 
 } else {
-  $_SESSION['errorr'] = "Please Enter tracking id";
-  echo '<script>window.location.href="track.php?#that_input";</script>';
-  exit();
+ 
+    echo "<script>
+            alert('Please enter a tracking ID.');
+            window.location.href = '../index.php';
+          </script>";
+    exit();
 }
 
-$history_sql = "SELECT `id`, `tracking_id`, `event_date`, `status`, `location`, `description` FROM `shipment_history` WHERE tracking_id = '$tracking_id' ORDER BY event_date DESC";
+
+$history_sql = "SELECT `id`, `tracking_id`, `event_date`, `status`, `location`, `description` 
+                FROM `shipment_history` 
+                WHERE tracking_id = '$tracking_id' 
+                ORDER BY event_date DESC";
 $history_result = $db->query($history_sql);
 $shipping_history = [];
+
 if ($history_result->num_rows > 0) {
-    while($history_row = $history_result->fetch_assoc()) {
+    while ($history_row = $history_result->fetch_assoc()) {
         $shipping_history[] = $history_row;
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US" class="scroll-smooth dark">
@@ -51,9 +62,9 @@ if ($history_result->num_rows > 0) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="description" content="Swift Express - Premium Worldwide Logistics and Rail Transport Services" />
+    <meta name="description" content="Swift Express Logistics - Premium Worldwide Logistics and Rail Transport Services" />
     <meta name="keywords" content="logistics, rail transport, shipping, freight, courier, transport, global delivery, package tracking" />
-    <meta name="author" content="Swift Express" />
+    <meta name="author" content="Swift Express Logistics" />
     <meta name="robots" content="index, follow" />
     <meta name="google-site-verification" content="" />
 
@@ -78,7 +89,7 @@ if ($history_result->num_rows > 0) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-awesome-markers/2.0.2/leaflet.awesome-markers.css">
 
     <link href="img/xbps.png" rel="shortcut icon">
-    <title>Track Shipment - Swift Express</title>
+    <title>Track Shipment - Swift Express Logistics</title>
 
     <script>
         tailwind.config = {
@@ -156,7 +167,7 @@ if ($history_result->num_rows > 0) {
             transition: all 0.3s ease;
         }
         
-        /* Custom Swift Express colors */
+        /* Custom Swift Express Logistics colors */
         .bg-rail-primary {
             background-color: #0ea5e9;
         }
@@ -896,7 +907,7 @@ if ($history_result->num_rows > 0) {
                                     <a href="payment.php?tracking_id=<?=get('tracking_id');?>" 
                                        class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all">
                                        <i class="fas fa-money-bill-wave mr-2"></i>
-                                       Pay Clearance Fee (USD 1,070.00)
+                                       Pay Clearance Fee
                                     </a>
                                 </div>
                             </div>
@@ -928,7 +939,7 @@ if ($history_result->num_rows > 0) {
                 <!-- Company Info -->
                 <div class="lg:col-span-2">
                     <div class="mb-6">
-                        <h3 class="text-xl font-semibold mb-2 text-white">Swift Express</h3>
+                        <h3 class="text-xl font-semibold mb-2 text-white">Swift Express Logistics</h3>
                     </div>
                     <p class="text-gray-300 mb-6 leading-relaxed">
                         Premium worldwide rail logistics and transport services with headquarters and branches across the globe. 
@@ -1015,8 +1026,8 @@ if ($history_result->num_rows > 0) {
                             </div>
                             <div>
                                 <p class="text-gray-400 text-sm">Email Us</p>
-                                <a href="mailto:support@Swiftexpress.com" class="text-white hover:text-blue-400 transition-colors break-words">
-                                    support@Swiftexpress.com
+                                <a href="mailto:support@swiftexpresses.online" class="text-white hover:text-blue-400 transition-colors break-words">
+                                    support@swiftexpresses.online
                                 </a>
                             </div>
                         </div>
@@ -1046,7 +1057,7 @@ if ($history_result->num_rows > 0) {
                 <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
                     <div class="text-center md:text-left">
                         <p class="text-gray-400 text-sm">
-                            Copyright &copy; <span id="currentYear"></span> Swift Express Services Limited. All rights reserved.
+                            Copyright &copy; <span id="currentYear"></span> Swift Express Logistics Services Limited. All rights reserved.
                         </p>
                     </div>
                     <div class="flex items-center space-x-6 text-sm">

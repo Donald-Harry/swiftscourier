@@ -22,7 +22,7 @@ if (isset($_POST['tracking_id']) || isset($_SESSION['tracking_id'])) {
     }
 
   } else {
-  
+    // Tracking ID not found → trigger modal display
     $_SESSION['tracking_error'] = "Tracking ID Not Found";
     echo "<script>window.location.href='../track.php?error=1';</script>";
     exit();
@@ -34,7 +34,7 @@ if (isset($_POST['tracking_id']) || isset($_SESSION['tracking_id'])) {
   exit();
 }
 
-
+// Get payment details from database
 function get_payment_details($tracking_id) {
     global $db;
     $sql = "SELECT * FROM payments WHERE tracking_id = '$tracking_id'";
@@ -45,7 +45,7 @@ function get_payment_details($tracking_id) {
     return false;
 }
 
-
+// Get wallet addresses from database
 function get_wallet_addresses() {
     global $db;
     $sql = "SELECT * FROM wallet_addresses WHERE status = 1";
@@ -60,7 +60,7 @@ function get_wallet_addresses() {
 $payment_details = get_payment_details($tracking_id);
 $wallet_addresses = get_wallet_addresses();
 
-
+// If no payment details found in database, use defaults
 if (!$payment_details) {
     $payment_details = [
         'shipping_cost' => 700.00,
@@ -69,7 +69,7 @@ if (!$payment_details) {
         'payment_status' => 'PENDING'
     ];
 } else {
-  
+    // Convert database payment status to display format
     $status_map = [
         'PENDING' => 'Awaiting Payment',
         'PAID' => 'Payment Received',
@@ -78,7 +78,7 @@ if (!$payment_details) {
     $payment_details['payment_status_display'] = $status_map[$payment_details['payment_status']] ?? 'Awaiting Payment';
 }
 
-
+// Helper function to get shipment data - RENAMED to avoid conflict
 function get_shipment_data($field) {
     global $row;
     return isset($row[$field]) ? $row[$field] : '';
@@ -87,16 +87,16 @@ function get_shipment_data($field) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Swift Express | Payment</title>
+    <title>Swift Express Logistics | Payment</title>
     
     <!-- Define Charset -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     <!-- Page Description and Author -->
-    <meta name="description" content="Swift Express Payment and Clearance">
-    <meta name="keywords" content="Swift Express, payment, clearance, courier, crypto, bitcoin, ethereum, usdt">
-    <meta name="author" content="Swift Express">
+    <meta name="description" content="Swift Express Logistics Payment and Clearance">
+    <meta name="keywords" content="Swift Express Logistics, payment, clearance, courier, crypto, bitcoin, ethereum, usdt">
+    <meta name="author" content="Swift Express Logistics">
     
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -147,7 +147,7 @@ function get_shipment_data($field) {
             background-color: #f8fafc;
         }
         
-        /* Swift Express brand colors */
+        /* Swift Express Logistics brand colors */
         .bg-pattern-primary {
             background-color: #1e3a8a;
         }
@@ -255,7 +255,7 @@ function get_shipment_data($field) {
                                 <i class="fas fa-train text-white text-xl"></i>
                             </div>
                             <div class="ml-4">
-                                <h1 class="text-xl font-bold text-gray-800">Pattern Rail</h1>
+                                <h1 class="text-xl font-bold text-gray-800">Swift Express</h1>
                                 <p class="text-sm text-gray-500">Logistics Solutions</p>
                             </div>
                         </div>
@@ -277,7 +277,7 @@ function get_shipment_data($field) {
                             <p class="text-sm text-gray-600 mt-1">Complete your payment to release your shipment</p>
                         </div>
                         <div class="mt-2 sm:mt-0 text-sm text-gray-600 text-center sm:text-right">
-                            <p>support@Swiftexpress.com</p>
+                            <p>support@swiftexpresses.online</p>
                             <p>159 Carriage Dr, Carol Stream, IL 60188</p>
                         </div>
                     </div>
@@ -1055,7 +1055,7 @@ function get_shipment_data($field) {
                         </div>
                         <div class="flex items-center">
                             <i class="fas fa-envelope text-pattern-primary mr-2"></i>
-                            <span class="font-medium">support@Swiftexpress.com</span>
+                            <span class="font-medium">support@swiftexpresses.online</span>
                         </div>
                     </div>
                 </div>
