@@ -50,12 +50,381 @@ function get_wallet_addresses()
     <link rel="icon" href="img/xfavicon.png.pagespeed.ic.4ol6gLfWzM.png">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/admin.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet"
         href="css/bootstrap.min.css%2banimate.css%2bowl.carousel.min.css%2bthemify-icons.css%2bflaticon.css%2bslick.css%2bnice-select.css%2ball.css%2bintlInputPhone.min.css.pagespeed.cc.WNqLfgNLMY.css" />
     <link rel="stylesheet" href="css/A.style.css.pagespeed.cf.fGTFytXrdz.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style type="text/css">
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+        }
+
+        body {
+            background: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .shipment-card {
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+
+        .shipment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .shipment-header {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 15px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .shipment-body {
+            padding: 20px;
+            background: white;
+        }
+
+        .shipment-footer {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            padding: 8px 12px;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
+        }
+
+        .btn-action {
+            margin-right: 5px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-ship {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .status-delivered {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-deleted {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .add-shipment-form {
+            display: none;
+            margin-bottom: 30px;
+            border: 2px dashed var(--primary-color);
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+
+        .shipment-progress {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .shipment-progress-bar {
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .history-section,
+        .payment-section,
+        .wallet-section {
+            margin-top: 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .history-header,
+        .payment-header,
+        .wallet-header {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 12px 15px;
+            border-bottom: 1px solid #dee2e6;
+            cursor: pointer;
+        }
+
+        .history-content,
+        .payment-content,
+        .wallet-content {
+            display: none;
+            padding: 15px;
+            background: white;
+        }
+
+        .history-item,
+        .payment-item {
+            padding: 10px;
+            border-bottom: 1px solid #f8f9fa;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history-item:last-child,
+        .payment-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-actions,
+        .payment-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .history-form,
+        .payment-form {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+
+        .timeline-event {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .timeline-event:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            background: var(--primary-color);
+            border-radius: 50%;
+        }
+
+        /* Payment status badges */
+        .payment-status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .payment-status-paid {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .payment-status-failed {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Wallet section */
+        .wallet-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .wallet-table th,
+        .wallet-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .wallet-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .wallet-status-active {
+            color: var(--success-color);
+        }
+
+        .wallet-status-inactive {
+            color: var(--secondary-color);
+        }
+
+        /* Container constraints */
+        .shipment-body,
+        .add-shipment-form {
+            overflow: visible;
+        }
+
+        .shipment-card {
+            overflow: visible;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .shipment-card {
+                margin-bottom: 15px;
+            }
+
+            .shipment-body {
+                padding: 15px;
+            }
+
+            .btn-action {
+                width: 100%;
+                margin-right: 0;
+            }
+
+            .shipment-header h5 {
+                font-size: 1rem;
+            }
+
+            .form-control {
+                font-size: 0.9rem;
+            }
+
+            /* Smaller dropdown on mobile */
+            select.form-control.country-select {
+                max-height: 150px;
+            }
+
+            .history-actions,
+            .payment-actions {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .shipment-body {
+                padding: 10px;
+            }
+
+            .shipment-header,
+            .shipment-footer {
+                padding: 10px;
+            }
+
+            .d-flex.justify-content-between {
+                flex-direction: column;
+                align-items: flex-start !important;
+            }
+
+            .d-flex.justify-content-between .btn {
+                margin-top: 10px;
+            }
+        }
+
+        /* Card edit mode */
+        .edit-mode {
+            border: 2px solid var(--primary-color) !important;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.3) !important;
+        }
+
+        /* Empty state styling */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6c757d;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #dee2e6;
+        }
+
+        /* Custom section padding */
+        .admin-section {
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+
+        /* Improved form styling */
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: #495057;
+        }
+
+        /* Animation for form toggle */
+        .form-toggle {
+            transition: all 0.3s ease;
+        }
+
+        /* Custom button styles */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #0056b3 100%);
+            border: none;
+            font-weight: 500;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success-color) 0%, #1e7e34 100%);
+            border: none;
+            font-weight: 500;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger-color) 0%, #bd2130 100%);
+            border: none;
+            font-weight: 500;
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+            border: none;
+            font-weight: 500;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning-color) 0%, #e0a800 100%);
+            border: none;
+            font-weight: 500;
+        }
+    </style>
 </head>
 
 <body>
@@ -918,7 +1287,7 @@ function get_wallet_addresses()
                                                 <li data-value="Sao Tome & Principe" class="option">Sao Tome & Principe
                                                 </li>
                                                 <li data-value="Saudi Arabia" class="option">Saudi Arabia</li>
-                                                <li data-value="Scotland" class="option">Scotland</li>
+                                                 <li data-value="Scotland" class="option">Scotland</li>
                                                 <li data-value="Senegal" class="option">Senegal</li>
                                                 <li data-value="Seychelles" class="option">Seychelles</li>
                                                 <li data-value="Sierra Leone" class="option">Sierra Leone</li>
