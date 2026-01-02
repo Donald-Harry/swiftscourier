@@ -1034,7 +1034,11 @@ if ($history_result->num_rows > 0) {
                                         <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Booking Date
                                         </h4>
                                     </div>
-                                    <p class="text-gray-700 dark:text-gray-300"><?= get('booking_date') ?></p>
+                                    <!-- <p class="text-gray-700 dark:text-gray-300"><?= get('booking_date') ?></p> -->
+                                    <p class="text-gray-700 dark:text-gray-300">
+                                        <?= date('M j, Y', strtotime(get('booking_date'))) ?>
+                                    </p>
+
                                 </div>
 
                                 <div
@@ -1044,7 +1048,10 @@ if ($history_result->num_rows > 0) {
                                         <h4 class="text-sm font-semibold text-gray-800 dark:text-white">Arrival Date
                                         </h4>
                                     </div>
-                                    <p class="text-gray-700 dark:text-gray-300"><?= get('arrival_date') ?></p>
+                                    <p class="text-gray-700 dark:text-gray-300">
+                                        <?= date('M j, Y', strtotime(get('booking_date'))) ?>
+                                    </p>
+
                                 </div>
                             </div>
 
