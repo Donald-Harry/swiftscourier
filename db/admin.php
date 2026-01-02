@@ -1287,7 +1287,7 @@ function get_wallet_addresses()
                                                 <li data-value="Sao Tome & Principe" class="option">Sao Tome & Principe
                                                 </li>
                                                 <li data-value="Saudi Arabia" class="option">Saudi Arabia</li>
-                                                 <li data-value="Scotland" class="option">Scotland</li>
+                                                <li data-value="Scotland" class="option">Scotland</li>
                                                 <li data-value="Senegal" class="option">Senegal</li>
                                                 <li data-value="Seychelles" class="option">Seychelles</li>
                                                 <li data-value="Sierra Leone" class="option">Sierra Leone</li>
