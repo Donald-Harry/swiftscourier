@@ -28,7 +28,7 @@
         </div> -->
 
       <div class="cont-div">
-        <h1 class="cont-address">Swiftsexpress</h1>
+        <h1 class="cont-address">Swiftexpress</h1>
         <p class="cont-desc-2">
           The fast and easiest platform to do your shippings
         </p>
@@ -36,7 +36,7 @@
 
       <div class="cont-div">
         <h1 class="cont-address">Email Address:</h1>
-        <a class="reach-us" href="mailto:support@swiftsexpresses.online">support@swiftexpress.online</a>
+        <a class="reach-us" href="mailto:support@swiftexpresses.online">support@swiftexpresses.online</a>
       </div>
 
       <!-- <div class="cont-div">
@@ -46,7 +46,7 @@
 
       <div class="cont-div">
         <h1 class="cont-address">Email Address:</h1>
-        <a class="reach-us" href="mailto:support@swiftexpresses.online">support@swiftexpress.online</a>
+        <a class="reach-us" href="mailto:support@swiftexpresses.online">support@swiftexpresses.online</a>
       </div>
 
       <div class="cont-div">
@@ -68,7 +68,8 @@
             </div>
             <div class="form-name">
               <label for="email" class="form-label">Email address</label><br /><br />
-              <input type="email" id="email" name="email" placeholder="Your email address" autocomplete="on" class="text" />
+              <input type="email" id="email" name="email" placeholder="Your email address" autocomplete="on"
+                class="text" />
             </div>
           </div>
           <div class="form-block">
@@ -99,10 +100,10 @@
   <!-- Footer Starts Here -->
   <?php include "footer.php" ?>
   <!-- Footer Ends Here -->
-  
-   <!-- Live Chat Starts Here -->
-<script src="//code.tidio.co/albqzhpghbqg7pdevpblb9ckpiqzzrri.js" async></script>
-<!-- Live Chat Ends Here -->
+
+  <!-- Live Chat Starts Here -->
+  <script src="//code.tidio.co/albqzhpghbqg7pdevpblb9ckpiqzzrri.js" async></script>
+  <!-- Live Chat Ends Here -->
 </body>
 
 </html>

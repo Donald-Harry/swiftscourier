@@ -6,7 +6,7 @@ include 'livechat.php';
     <div class="display">
         <div class="footer-div">
             <!-- <img class="footer-logo" src="images/logo.jpg" alt="Company Logo" /> -->
-            <a href="#" class="footer-logo">Swiftsexpress</a>
+            <a href="#" class="footer-logo">Swiftexpress</a>
 
             <p class="footer-desc">
                 Our foremost commitment is to guarantee the success of your business
@@ -32,8 +32,8 @@ include 'livechat.php';
             </div>
 
             <div class="email">
-                <a href="mailto:support@swiftsexpresses.online" target="_blank"
-                    class="email-link">support@swiftsexpress.online</a>
+                <a href="mailto:support@swiftexpresses.online" target="_blank"
+                    class="email-link">support@swiftexpresses.online</a>
             </div>
         </div>
         <div class="col-1-4-parent">
@@ -105,7 +105,7 @@ include 'livechat.php';
                     <input type="email" id="email" name="email" placeholder="Your email address" autocomplete="on"
                         class="text" />
 
-                    <a href="mailto:support@swiftsexpresses.online" class="email-cta"><i
+                    <a href="mailto:support@swiftexpresses.online" class="email-cta"><i
                             class="fa-solid fa-right-long"></i></a>
                 </div>
 
@@ -119,6 +119,6 @@ include 'livechat.php';
                 var year = new Date();
                 document.write(year.getFullYear());
             </script>
-            swiftsexpress All Rights Reserved
+            swiftexpress All Rights Reserved
         </span></p>
 </footer>t
