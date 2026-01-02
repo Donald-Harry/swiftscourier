@@ -392,8 +392,8 @@ if ($history_result->num_rows > 0) {
                                 <div class="flex items-center text-white text-sm">
                                     <i class="far fa-clock mr-2 opacity-80"></i>
                                     <!-- <span class="opacity-90">Last Updated: <?= get('booking_date') ?></span> -->
-                                    <span class="opacity-90">Last Updated:
-                                        <?= date('M d, Y - h:i A', strtotime($event['event_date'])) ?></span>
+                                    <!-- <span class="opacity-90">Last Updated:
+                                        <?= date('M d, Y - h:i A', strtotime($event['event_date'])) ?></span> -->
                                 </div>
                             </div>
                         </div>
