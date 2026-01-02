@@ -576,7 +576,8 @@ if ($history_result->num_rows > 0) {
                                 </div>
                                 <div class="ml-4 md:ml-0 md:mt-3">
                                     <h4 class="text-sm font-semibold text-gray-900 dark:text-white">Order Confirmed</h4>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1"><?= get('booking_date') ?>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                        <?= date('M j, Y', strtotime(get('booking_date'))) ?>
                                     </p>
                                 </div>
                             </div>
@@ -590,7 +591,8 @@ if ($history_result->num_rows > 0) {
                                 <div class="ml-4 md:ml-0 md:mt-3">
                                     <h4 class="text-sm font-semibold text-gray-900 dark:text-white">Picked by Courier
                                     </h4>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1"><?= get('booking_date') ?>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                        <?= date('M j, Y', strtotime(get('booking_date'))) ?>
                                     </p>
                                 </div>
                             </div>
@@ -631,7 +633,7 @@ if ($history_result->num_rows > 0) {
                                 <div class="ml-4 md:ml-0 md:mt-3">
                                     <h4 class="text-sm font-semibold text-gray-900 dark:text-white">Delivered</h4>
                                     <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Est.
-                                        <?= get('arrival_date') ?>
+                                        <?= date('M j, Y', strtotime(get('arrival_date'))) ?>
                                     </p>
                                 </div>
                             </div>
