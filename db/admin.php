@@ -1747,15 +1747,17 @@ function get_wallet_addresses()
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="form-label">Booking Date</label>
+                                                        <!-- <input type="date" name="booking_date" class="form-control"
+                                                            value="<?= $ship['booking_date'] ?>"> -->
                                                         <input type="date" name="booking_date" class="form-control"
-                                                            value="<?= $ship['booking_date'] ?>">
+                                                            value="<?= date('Y-m-d', strtotime($ship['booking_date'])) ?>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="form-label">Arrival Date</label>
                                                         <input type="date" name="arrival_date" class="form-control"
-                                                            value="<?= $ship['arrival_date'] ?>">
+                                                            value="<?= date('Y-m-d', strtotime($ship['arrival_date'])) ?>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">

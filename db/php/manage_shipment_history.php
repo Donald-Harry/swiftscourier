@@ -7,18 +7,19 @@ error_reporting(E_ALL);
 include 'functions.php';
 
 // Sanitize input safely
-function sanitize_input($data) {
+function sanitize_input($data)
+{
     return trim(strip_tags($data));
 }
 
-// ✅ ADD HISTORY EVENT
+// ADD HISTORY EVENT
 if (isset($_POST['add_history'])) {
     global $db;
 
     $tracking_id = sanitize_input($_POST['tracking_id']);
-    $event_date  = sanitize_input($_POST['event_date']);
-    $status      = sanitize_input($_POST['status']);
-    $location    = sanitize_input($_POST['location']);
+    $event_date = sanitize_input($_POST['event_date']);
+    $status = sanitize_input($_POST['status']);
+    $location = sanitize_input($_POST['location']);
     $description = sanitize_input($_POST['description']);
 
     if (empty($tracking_id) || empty($event_date) || empty($status) || empty($location) || empty($description)) {
@@ -67,7 +68,7 @@ if (isset($_POST['add_history'])) {
     }
 }
 
-// ✅ DELETE HISTORY EVENT
+// DELETE HISTORY EVENT
 if (isset($_POST['delete_history'])) {
     global $db;
 
@@ -99,15 +100,15 @@ if (isset($_POST['delete_history'])) {
     exit();
 }
 
-// ✅ UPDATE HISTORY EVENT
+// UPDATE HISTORY EVENT
 if (isset($_POST['update_history'])) {
     global $db;
 
-    $id          = sanitize_input($_POST['id']);
+    $id = sanitize_input($_POST['id']);
     $tracking_id = sanitize_input($_POST['tracking_id']);
-    $event_date  = sanitize_input($_POST['event_date']);
-    $status      = sanitize_input($_POST['status']);
-    $location    = sanitize_input($_POST['location']);
+    $event_date = sanitize_input($_POST['event_date']);
+    $status = sanitize_input($_POST['status']);
+    $location = sanitize_input($_POST['location']);
     $description = sanitize_input($_POST['description']);
 
     if (empty($id) || empty($tracking_id) || empty($event_date) || empty($status) || empty($location) || empty($description)) {
@@ -148,7 +149,7 @@ if (isset($_POST['update_history'])) {
     exit();
 }
 
-// ❌ NO VALID ACTION
+// NO VALID ACTION
 echo "<script>
         alert('Invalid action.');
         window.location.href = '../admin.php';
