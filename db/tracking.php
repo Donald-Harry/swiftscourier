@@ -1051,7 +1051,7 @@ if ($history_result->num_rows > 0) {
                                         </h4>
                                     </div>
                                     <p class="text-gray-700 dark:text-gray-300">
-                                        <?= date('M j, Y', strtotime(get('booking_date'))) ?>
+                                        <?= date('M j, Y', strtotime(get('arrival_date'))) ?>
                                     </p>
 
                                 </div>
