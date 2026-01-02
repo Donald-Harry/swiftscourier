@@ -692,7 +692,7 @@ function get_wallet_addresses()
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="arrival_date" class="form-label">Arrival Date</label>
-                                        <input required type="text" name="arrival_date" class="form-control"
+                                        <input required type="date" name="arrival_date" class="form-control"
                                             placeholder="Arrival Date">
                                     </div>
                                 </div>
@@ -1747,14 +1747,14 @@ function get_wallet_addresses()
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="form-label">Booking Date</label>
-                                                        <input type="text" name="booking_date" class="form-control"
+                                                        <input type="date" name="booking_date" class="form-control"
                                                             value="<?= $ship['booking_date'] ?>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="form-label">Arrival Date</label>
-                                                        <input type="text" name="arrival_date" class="form-control"
+                                                        <input type="date" name="arrival_date" class="form-control"
                                                             value="<?= $ship['arrival_date'] ?>">
                                                     </div>
                                                 </div>
