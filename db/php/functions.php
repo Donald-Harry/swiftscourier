@@ -2,7 +2,7 @@
 session_start();
 $host = "localhost";
 $user = "u787607796_swiftexpress";
-$password = 'Swiftexpress1234@';
+$password = 'Swiftexpress14@';
 $db_name = "u787607796_swiftexpress";
     $db = mysqli_connect($host, $user, $password, $db_name);  
     if(mysqli_connect_errno()) {  
