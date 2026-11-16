@@ -8,7 +8,7 @@
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
   <script src="js/script.js" defer></script>
-  <title>Welcome | Consignmentssss</title>
+  <title>Welcome | Consignment</title>
 </head>
 
 <body>
@@ -21,7 +21,8 @@
       </p>
       <div class="input-track-div">
         <form method="post" action="db/tracking.php">
-          <input type="text" name="tracking_id" id="c4" placeholder="Enter Your Tracking Number" autocomplete="on" class="tracking-box" required />
+          <input type="text" name="tracking_id" id="c4" placeholder="Enter Your Tracking Number" autocomplete="on"
+            class="tracking-box" required />
 
           <button class="track-cta" type="submit" name="">
             TRACK YOUR SHIPMENT<i class="bx bx-right-arrow-alt"></i>
@@ -95,7 +96,9 @@
     <h3 class="shipping">Shipping Solutions</h3>
     <div class="parent-div">
       <div class="img-div">
-        <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hpcHBpbmd8ZW58MHx8MHx8fDA%3D" alt="" class="warehouse-img" />
+        <img
+          src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hpcHBpbmd8ZW58MHx8MHx8fDA%3D"
+          alt="" class="warehouse-img" />
         <p class="img-desc">
           We've had the pleasure of experiencing the exceptional service
           provided by Swiftsexpress in ocean transportation. We're excited
@@ -204,7 +207,8 @@
                 <input type="text" id="fname" name="fname" placeholder="Your fullname" class="text" /><br />
               </div>
               <div class="form-name">
-                <input type="email" id="email" name="email" placeholder="Your email address" autocomplete="on" class="text" />
+                <input type="email" id="email" name="email" placeholder="Your email address" autocomplete="on"
+                  class="text" />
               </div>
             </div>
             <div class="form-block">
