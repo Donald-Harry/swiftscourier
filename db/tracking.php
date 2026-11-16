@@ -67,10 +67,10 @@ if ($history_result->num_rows > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="description"
-        content="Swift Express Logistics - Premium Worldwide Logistics and Rail Transport Services" />
+        content="Swiftscourier Logistics - Premium Worldwide Logistics and Rail Transport Services" />
     <meta name="keywords"
         content="logistics, rail transport, shipping, freight, courier, transport, global delivery, package tracking" />
-    <meta name="author" content="Swift Express Logistics" />
+    <meta name="author" content="Swiftscourier Logistics" />
     <meta name="robots" content="index, follow" />
     <meta name="google-site-verification" content="" />
 
@@ -96,7 +96,7 @@ if ($history_result->num_rows > 0) {
         href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-awesome-markers/2.0.2/leaflet.awesome-markers.css">
 
     <link href="img/xbps.png" rel="shortcut icon">
-    <title>Track Shipment - Swift Express Logistics</title>
+    <title>Track Shipment - Swiftscourier Logistics</title>
 
     <script>
         tailwind.config = {
@@ -174,7 +174,7 @@ if ($history_result->num_rows > 0) {
             transition: all 0.3s ease;
         }
 
-        /* Custom Swift Express Logistics colors */
+        /* Custom Swiftscourier Logistics colors */
         .bg-rail-primary {
             background-color: #0ea5e9;
         }
@@ -1103,7 +1103,7 @@ if ($history_result->num_rows > 0) {
                 <!-- Company Info -->
                 <div class="lg:col-span-2">
                     <div class="mb-6">
-                        <h3 class="text-xl font-semibold mb-2 text-white">Swift Express Logistics</h3>
+                        <h3 class="text-xl font-semibold mb-2 text-white">Swiftscourier Logistics</h3>
                     </div>
                     <p class="text-gray-300 mb-6 leading-relaxed">
                         Premium worldwide rail logistics and transport services with headquarters and branches across
@@ -1234,7 +1234,7 @@ if ($history_result->num_rows > 0) {
                 <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
                     <div class="text-center md:text-left">
                         <p class="text-gray-400 text-sm">
-                            Copyright &copy; <span id="currentYear"></span> Swift Express Logistics Services Limited.
+                            Copyright &copy; <span id="currentYear"></span> Swiftscourier Logistics Services Limited.
                             All rights reserved.
                         </p>
                     </div>

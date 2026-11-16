@@ -37,16 +37,16 @@ if (isset($_POST['tracking_id']) || isset($_SESSION['tracking_id'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Swift Express Logistics | Invoice</title>
+    <title>Swiftscourier Logistics | Invoice</title>
     
     <!-- Define Charset -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     <!-- Page Description and Author -->
-    <meta name="description" content="Swift Express Logistics Tracking and Shipping">
-    <meta name="keywords" content="Swift Express Logistics, logistics, shipping, courier, rail transport">
-    <meta name="author" content="Swift Express Logistics">
+    <meta name="description" content="Swiftscourier Logistics Tracking and Shipping">
+    <meta name="keywords" content="Swiftscourier Logistics, logistics, shipping, courier, rail transport">
+    <meta name="author" content="Swiftscourier Logistics">
     
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -132,7 +132,7 @@ if (isset($_POST['tracking_id']) || isset($_SESSION['tracking_id'])) {
             }
         }
         
-        /* Swift Express Logistics brand colors */
+        /* Swiftscourier Logistics brand colors */
         .bg-pattern-primary {
             background-color: #1e3a8a;
         }
@@ -190,7 +190,7 @@ if (isset($_POST['tracking_id']) || isset($_SESSION['tracking_id'])) {
                                 <i class="fas fa-train text-white text-xl"></i>
                             </div>
                             <div class="ml-4 hidden sm:block">
-                                <h1 class="text-xl font-bold text-gray-800">Swift Express</h1>
+                                <h1 class="text-xl font-bold text-gray-800">Swiftscourier</h1>
                                 <p class="text-sm text-gray-500">Logistics Solutions</p>
                             </div>
                         </div>
@@ -208,11 +208,11 @@ if (isset($_POST['tracking_id']) || isset($_SESSION['tracking_id'])) {
                     <!-- Company information -->
                     <div class="mt-4 text-center sm:text-left sm:flex sm:justify-between">
                         <div>
-                            <h2 class="text-lg font-bold text-pattern-primary sm:text-xl">Swift Express Logistics</h2>
+                            <h2 class="text-lg font-bold text-pattern-primary sm:text-xl">Swiftscourier Logistics</h2>
                             <p class="text-sm text-gray-600 mt-1">Reliable Rail & Logistics Solutions</p>
                         </div>
                         <div class="mt-2 sm:mt-0 text-sm text-gray-600 text-center sm:text-right">
-                            <p>support@swiftexpresses.online</p>
+                            <p>support@swiftscourier.online</p>
                             <p>159 Carriage Dr, Carol Stream, IL 60188</p>
                         </div>
                     </div>
@@ -500,7 +500,7 @@ if (isset($_POST['tracking_id']) || isset($_SESSION['tracking_id'])) {
                                         <div class="h-12 w-12 border-2 border-pattern-primary rounded-full flex items-center justify-center mx-auto">
                                             <i class="fas fa-check text-pattern-primary"></i>
                                         </div>
-                                        <p class="text-xs text-gray-500 mt-1">Swift Express</p>
+                                        <p class="text-xs text-gray-500 mt-1">Swiftscourier</p>
                                     </div>
                                 </div>
                                 <p class="text-xs text-center text-gray-500 mt-2"><?=date('D, M d, Y h:i A')?></p>
@@ -622,7 +622,7 @@ if (isset($_POST['tracking_id']) || isset($_SESSION['tracking_id'])) {
                 <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-3">
                     <i class="fas fa-train text-pattern-primary text-xl"></i>
                 </div>
-                <h3 class="text-base font-bold text-pattern-primary mb-1">Thank You for Choosing Swift Express Logistics</h3>
+                <h3 class="text-base font-bold text-pattern-primary mb-1">Thank You for Choosing Swiftscourier Logistics</h3>
                 <p class="text-gray-600">We appreciate your business and look forward to delivering your package safely.</p>
                 <div class="inline-flex items-center mt-4 text-xs text-gray-500">
                     <i class="far fa-clock mr-1 text-sm"></i>

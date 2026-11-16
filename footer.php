@@ -119,6 +119,6 @@ include 'livechat.php';
                 var year = new Date();
                 document.write(year.getFullYear());
             </script>
-            swiftexpress All Rights Reserved
+            swiftscourier All Rights Reserved
         </span></p>
 </footer>t

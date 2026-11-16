@@ -87,16 +87,16 @@ function get_shipment_data($field) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Swift Express Logistics | Payment</title>
+    <title>Swiftscourier Logistics | Payment</title>
     
     <!-- Define Charset -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     <!-- Page Description and Author -->
-    <meta name="description" content="Swift Express Logistics Payment and Clearance">
-    <meta name="keywords" content="Swift Express Logistics, payment, clearance, courier, crypto, bitcoin, ethereum, usdt">
-    <meta name="author" content="Swift Express Logistics">
+    <meta name="description" content="Swiftscourier Logistics Payment and Clearance">
+    <meta name="keywords" content="Swiftscourier Logistics, payment, clearance, courier, crypto, bitcoin, ethereum, usdt">
+    <meta name="author" content="Swiftscourier Logistics">
     
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -255,7 +255,7 @@ function get_shipment_data($field) {
                                 <i class="fas fa-train text-white text-xl"></i>
                             </div>
                             <div class="ml-4">
-                                <h1 class="text-xl font-bold text-gray-800">Swift Express</h1>
+                                <h1 class="text-xl font-bold text-gray-800">Swiftscourier</h1>
                                 <p class="text-sm text-gray-500">Logistics Solutions</p>
                             </div>
                         </div>
@@ -277,7 +277,7 @@ function get_shipment_data($field) {
                             <p class="text-sm text-gray-600 mt-1">Complete your payment to release your shipment</p>
                         </div>
                         <div class="mt-2 sm:mt-0 text-sm text-gray-600 text-center sm:text-right">
-                            <p>support@swiftexpresses.online</p>
+                            <p>support@swiftscourier.online</p>
                             <p>159 Carriage Dr, Carol Stream, IL 60188</p>
                         </div>
                     </div>
@@ -1055,7 +1055,7 @@ function get_shipment_data($field) {
                         </div>
                         <div class="flex items-center">
                             <i class="fas fa-envelope text-pattern-primary mr-2"></i>
-                            <span class="font-medium">support@swiftexpresses.online</span>
+                            <span class="font-medium">support@swiftscourier.online</span>
                         </div>
                     </div>
                 </div>
