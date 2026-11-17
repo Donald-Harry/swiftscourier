@@ -1,18 +1,18 @@
 <?php
 session_start();
 $host = "localhost";
-$user = "u805714589_swiftscourier";
-$password = 'Swiftscourier1234@!';
-$db_name = "u805714589_swiftscourier";
+$user = "swiftscourrier_admin";
+$password = 'Swiftscourrier1234@!';
+$db_name = "swiftscourrier_db";
 $db = mysqli_connect($host, $user, $password, $db_name);
 if (mysqli_connect_errno()) {
   die("Failed to connect with MySQL: " . mysqli_connect_error());
 }
-$site_name = "swiftexpresses";
-$site_url = 'www.swiftscourier.online';
+$site_name = "swiftscourrier";
+$site_url = 'www.swiftscourrier.com';
 $nav_config_pt = '/logistic/';
 
-$my_email = "support@swiftscourier.online";
+$my_email = "support@swiftscourrier.com";
 
 function sanitize(&$input)
 {
