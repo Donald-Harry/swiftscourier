@@ -32,8 +32,8 @@ include 'livechat.php';
             </div>
 
             <div class="email">
-                <a href="mailto:support@swiftscourier.online" target="_blank"
-                    class="email-link">support@swiftscourier.online</a>
+                <a href="mailto:support@swiftscourrier.com" target="_blank"
+                    class="email-link">support@swiftscourrier.com</a>
             </div>
         </div>
         <div class="col-1-4-parent">
@@ -105,7 +105,7 @@ include 'livechat.php';
                     <input type="email" id="email" name="email" placeholder="Your email address" autocomplete="on"
                         class="text" />
 
-                    <a href="mailto:support@swiftscourier.online" class="email-cta"><i
+                    <a href="mailto:support@swiftscourrier.com" class="email-cta"><i
                             class="fa-solid fa-right-long"></i></a>
                 </div>
 
