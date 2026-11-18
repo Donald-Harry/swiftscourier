@@ -17,7 +17,7 @@
 
     <div class="ad-div">
       <p class="provide">
-        Please we are here provide your tracking ID to trace your shipment's progress.
+        Please weeeeeeeee are here provide your tracking ID to trace your shipment's progress.
       </p>
       <div class="input-track-div">
         <form method="post" action="db/tracking.php">
